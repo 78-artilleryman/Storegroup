@@ -2,6 +2,7 @@
 
 import React from "react";
 import Script from "next/script";
+import StoreListBottomSheet from "./StoreListBottomSheet";
 
 interface MapProps {
   lat?: string | null;
@@ -40,6 +41,7 @@ function KakaoMap({
         onReady={loadKakaoMap}
       />
       <div id="map" className="w-full h-screen" />
+      <StoreListBottomSheet />
     </>
   );
 }
