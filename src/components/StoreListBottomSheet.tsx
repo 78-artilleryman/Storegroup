@@ -21,7 +21,7 @@ function StoreListBottomSheet() {
         >
           목록보기
         </DrawerTrigger>
-        <DrawerContent className="h-[60vh] min-h-[300px] max-h-[500px] max-w-[420px] mx-auto sm:h-[50vh] md:h-[45vh]">
+        <DrawerContent className="h-[300px] max-w-[420px] mx-auto">
           <DrawerHeader>
             <DrawerTitle>Are you absolutely sure?</DrawerTitle>
             <DrawerDescription>This action cannot be undone.</DrawerDescription>
