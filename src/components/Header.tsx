@@ -52,11 +52,15 @@ function Header() {
         </div>
 
         {/* 버튼 영역 - 50% */}
-        <div className="flex-1 flex gap-2">
-          <Button className="flex-1" variant="ghost" onClick={searchPlaces}>
+        <div className="w-full flex-1 flex justify-between">
+          <Button
+            className="flex-1 w-full"
+            variant="ghost"
+            onClick={searchPlaces}
+          >
             장소
           </Button>
-          <Button className="flex-1" variant="ghost">
+          <Button className="flex-1 w-full" variant="ghost">
             리스트
           </Button>
         </div>
