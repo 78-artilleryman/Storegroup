@@ -39,13 +39,16 @@ function Header() {
     <div className="w-full p-4 bg-white border-b">
       <div className="flex gap-3 items-center flex-col">
         {/* 인풋 영역 - 50% */}
-        <div className="w-full">
+        <div className="w-full flex gap-2">
           <Input
             placeholder="검색어를 입력하세요"
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
-            onKeyPress={handleSearch}
+            onKeyDown={handleSearch}
           />
+          <Button variant="outline" onClick={() => searchPlaces()} className="">
+            검색
+          </Button>
         </div>
 
         {/* 버튼 영역 - 50% */}
