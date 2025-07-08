@@ -26,14 +26,14 @@ function StoreListBottomSheet() {
         >
           목록보기
         </DrawerTrigger>
-        <DrawerContent className="fixed bottom-0 left-0 right-0 max-h-[70vh] rounded-t-xl bg-white mx-auto max-w-[420px]">
+        <DrawerContent className="fixed bottom-0 left-0 right-0 max-h-[50vh] rounded-t-xl bg-white mx-auto max-w-[420px]">
           <div className="mx-auto w-full max-w-[420px]">
             <DrawerHeader className="px-4 py-3">
               <DrawerTitle className="text-base font-bold">
                 검색 결과 ({places.length}개)
               </DrawerTitle>
             </DrawerHeader>
-            <div className="px-4 pb-safe-or-4 overflow-y-auto-hide max-h-[calc(70vh-100px)] overflow-y-auto">
+            <div className="px-4 pb-safe-or-4 overflow-y-auto-hide max-h-[calc(50vh-80px)] overflow-y-auto">
               {places.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-8">
                   <p className="text-gray-500 text-sm">검색 결과가 없습니다.</p>

@@ -20,7 +20,7 @@ declare global {
 function KakaoMap({
   lat = "37.497625203",
   lng = "127.03088379",
-  zoom = 3,
+  zoom = 4,
 }: MapProps) {
   const mapRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
@@ -98,7 +98,7 @@ function KakaoMap({
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
         onReady={loadKakaoMap}
       />
-      <div id="map" className="w-full h-screen" />
+      <div id="map" className="w-full h-[calc(100vh-120px)]" />
       <StoreListBottomSheet />
     </>
   );
