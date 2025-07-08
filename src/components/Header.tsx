@@ -4,10 +4,13 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useSearchStore } from "@/store";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Header() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const setPlaces = useSearchStore((state) => state.setPlaces);
+  const pathname = usePathname();
 
   const searchPlaces = async () => {
     if (!searchKeyword.trim()) return;
@@ -36,8 +39,8 @@ function Header() {
   };
 
   return (
-    <div className="w-full p-4 bg-white border-b">
-      <div className="flex gap-3 items-center flex-col">
+    <div className="w-full bg-white border-b">
+      <div className="flex gap-3 items-center flex-col p-4 pb-0">
         {/* 인풋 영역 - 50% */}
         <div className="w-full flex gap-2">
           <Input
@@ -46,23 +49,35 @@ function Header() {
             onChange={(e) => setSearchKeyword(e.target.value)}
             onKeyDown={handleSearch}
           />
-          <Button variant="outline" onClick={() => searchPlaces()} className="">
+          <Button variant="outline" onClick={searchPlaces} className="">
             검색
           </Button>
         </div>
 
         {/* 버튼 영역 - 50% */}
         <div className="w-full flex-1 flex justify-between">
-          <Button
-            className="flex-1 w-full"
-            variant="ghost"
-            onClick={searchPlaces}
+          <Link
+            href="/"
+            className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
+              ${
+                pathname === "/"
+                  ? "text-blue-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-500"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
           >
             장소
-          </Button>
-          <Button className="flex-1 w-full" variant="ghost">
+          </Link>
+          <Link
+            href="/list"
+            className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
+              ${
+                pathname === "/list"
+                  ? "text-blue-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-500"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+          >
             리스트
-          </Button>
+          </Link>
         </div>
       </div>
     </div>
