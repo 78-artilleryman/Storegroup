@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Stroegroupg",
+  title: "StroeGroup",
   description: "매장 그룹화해드려요",
 };
 
