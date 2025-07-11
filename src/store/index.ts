@@ -9,6 +9,21 @@ export interface Place {
   thumbnail_url?: string;
 }
 
+export interface ClusterPlace {
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
+export interface ClusteringResult {
+  [key: string]: ClusterPlace[];
+}
+
+export interface GroupingResponse {
+  result: ClusteringResult;
+}
+
 interface SearchStore {
   places: Place[];
   // eslint-disable-next-line no-unused-vars
@@ -20,6 +35,10 @@ interface SearchStore {
   removeSelectedPlace: (place: Place) => void;
   // eslint-disable-next-line no-unused-vars
   isPlaceSelected: (place: Place) => boolean;
+  groupingResult: GroupingResponse | null;
+  // eslint-disable-next-line no-unused-vars
+  setGroupingResult: (result: GroupingResponse) => void;
+  clearGroupingResult: () => void;
 }
 
 export const useSearchStore = create<SearchStore>((set, get) => ({
@@ -56,4 +75,7 @@ export const useSearchStore = create<SearchStore>((set, get) => ({
         p.address_name === place.address_name
     );
   },
+  groupingResult: null,
+  setGroupingResult: (result) => set({ groupingResult: result }),
+  clearGroupingResult: () => set({ groupingResult: null }),
 }));

@@ -1,15 +1,68 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSearchStore } from "@/store";
 import Image from "next/image";
 import { Button } from "./ui/button";
 
 function SelectedPlaceList() {
+  const [isGrouping, setIsGrouping] = useState(false);
+  const router = useRouter();
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
   const removeSelectedPlace = useSearchStore(
     (state) => state.removeSelectedPlace
   );
+  const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
+
+  const handleGrouping = async () => {
+    if (selectedPlaces.length === 0 || isGrouping) return;
+
+    try {
+      setIsGrouping(true);
+
+      // 선택된 장소들을 요청 형식에 맞게 변환
+      const requestData = {
+        place: selectedPlaces.map((place) => ({
+          name: place.place_name,
+          address: place.road_address_name || place.address_name,
+          latitude: parseFloat(place.y),
+          longitude: parseFloat(place.x),
+        })),
+      };
+
+      console.log("Sending data:", requestData);
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/cluster`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Grouping result:", result);
+
+      // 그룹화 결과를 전역 상태에 저장
+      setGroupingResult(result);
+
+      // 그룹화가 완료되면 그룹 페이지로 이동
+      router.push("/group");
+    } catch (error) {
+      console.error("그룹화 요청 중 오류가 발생했습니다:", error);
+      alert("그룹화 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsGrouping(false);
+    }
+  };
 
   if (selectedPlaces.length === 0) {
     return (
@@ -26,8 +79,14 @@ function SelectedPlaceList() {
         <h1 className="text-lg font-bold">
           선택된 장소 ({selectedPlaces.length}개)
         </h1>
-        <Button variant="outline" size="sm" className="h-8 text-sm font-medium">
-          그룹화
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-8 text-sm font-medium"
+          onClick={handleGrouping}
+          disabled={isGrouping || selectedPlaces.length === 0}
+        >
+          {isGrouping ? "그룹화 중..." : "그룹화"}
         </Button>
       </div>
       <ul className="space-y-2">
@@ -68,6 +127,7 @@ function SelectedPlaceList() {
                   size="sm"
                   className="h-6 text-xs font-medium"
                   onClick={() => removeSelectedPlace(place)}
+                  disabled={isGrouping}
                 >
                   삭제
                 </Button>
