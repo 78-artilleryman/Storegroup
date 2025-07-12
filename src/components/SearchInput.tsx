@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useSearchStore } from "@/store";
@@ -8,6 +8,7 @@ import { useSearchStore } from "@/store";
 function SearchInput() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const setPlaces = useSearchStore((state) => state.setPlaces);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const searchPlaces = async () => {
     if (!searchKeyword.trim()) return;
@@ -24,6 +25,11 @@ function SearchInput() {
       }
 
       setPlaces(data.places);
+
+      // 검색 완료 후 키보드 숨기기
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
     } catch (error) {
       console.error("장소 검색 중 오류가 발생했습니다:", error);
     }
@@ -37,6 +43,7 @@ function SearchInput() {
   return (
     <form onSubmit={handleSubmit} className="w-full flex gap-2">
       <Input
+        ref={inputRef}
         placeholder="검색어를 입력하세요"
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
