@@ -19,6 +19,9 @@ function StoreListBottomSheet() {
   );
   const isPlaceSelected = useSearchStore((state) => state.isPlaceSelected);
 
+  const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
+  console.log(selectedPlaces);
+
   // 장소 토글 핸들러를 메모이제이션
   const handlePlaceToggle = useCallback(
     (place: Place) => {
