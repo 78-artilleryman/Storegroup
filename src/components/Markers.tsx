@@ -155,7 +155,6 @@ function Markers({
     (window as any).handleMarkerClick = (placeId: string) => {
       const handler = clickHandlers[placeId];
       if (handler) {
-        console.log("마커 클릭:", handler.place.name); // 디버깅용
         onPlaceClick(handler.place, handler.groupNumber, handler.color);
       }
     };
