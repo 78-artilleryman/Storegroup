@@ -60,19 +60,6 @@ function KakaoMap({
         map: mapRef.current,
       });
 
-      // 마커에 클릭 이벤트 추가
-      const infowindow = new window.kakao.maps.InfoWindow({
-        content: `<div style="padding:5px;font-size:12px;">${place.place_name}</div>`,
-      });
-
-      window.kakao.maps.event.addListener(marker, "click", function () {
-        infowindow.open(mapRef.current, marker);
-      });
-
-      window.kakao.maps.event.addListener(marker, "mouseout", function () {
-        infowindow.close();
-      });
-
       markersRef.current.push(marker);
       bounds.extend(position);
     });
