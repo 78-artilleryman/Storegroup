@@ -25,11 +25,6 @@ function SearchInput() {
       }
 
       setPlaces(data.places);
-
-      // 검색 완료 후 키보드 숨기기
-      if (inputRef.current) {
-        inputRef.current.blur();
-      }
     } catch (error) {
       console.error("장소 검색 중 오류가 발생했습니다:", error);
     }
@@ -37,6 +32,10 @@ function SearchInput() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // 검색 시도 후 키보드 숨기기
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
     searchPlaces();
   };
 
