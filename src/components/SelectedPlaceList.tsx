@@ -92,7 +92,7 @@ function SelectedPlaceList() {
         </Button>
       </div>
 
-      {selectedPlaces.length <= groupCount && (
+      {selectedPlaces.length < groupCount && (
         <div className="mb-4 p-2 bg-orange-50 border border-orange-200 rounded-lg">
           <p className="text-sm text-orange-700">
             그룹화하려면 그룹 수({groupCount}개)보다 많은 장소를 선택해주세요.
