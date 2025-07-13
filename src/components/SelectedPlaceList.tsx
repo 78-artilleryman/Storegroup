@@ -76,7 +76,7 @@ function SelectedPlaceList() {
   }
 
   return (
-    <div className="max-w-[420px] mx-auto p-4 max-h-[calc(100vh-60px)] flex flex-col">
+    <div className="max-w-[420px] mx-auto p-4 max-h-[calc(100vh-100px)] flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-lg font-bold">
           선택된 장소 ({selectedPlaces.length}개)
@@ -124,7 +124,7 @@ function SelectedPlaceList() {
 
       {/* 스크롤 가능한 장소 리스트 */}
       <div className="flex-1 overflow-y-auto min-h-0">
-        <ul className="space-y-2 pb-12">
+        <ul className="space-y-2 pb-15">
           {selectedPlaces.map((place, index) => (
             <li
               key={`${place.place_name}-${index}`}
