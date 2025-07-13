@@ -17,7 +17,7 @@ function SelectedPlaceList() {
   const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
 
   const handleGrouping = async () => {
-    if (selectedPlaces.length === 0 || isGrouping) return;
+    if (selectedPlaces.length <= groupCount || isGrouping) return;
 
     try {
       setIsGrouping(true);
@@ -76,7 +76,7 @@ function SelectedPlaceList() {
   }
 
   return (
-    <div className="max-w-[420px] mx-auto p-4 max-h-[calc(100vh-100px)] flex flex-col">
+    <div className="max-w-[420px] mx-auto p-4 max-h-[calc(100vh-70px)] flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-lg font-bold">
           선택된 장소 ({selectedPlaces.length}개)
@@ -86,11 +86,19 @@ function SelectedPlaceList() {
           size="sm"
           className="h-8 text-sm font-medium bg-blue-500 hover:bg-blue-600"
           onClick={handleGrouping}
-          disabled={isGrouping || selectedPlaces.length === 0}
+          disabled={isGrouping || selectedPlaces.length <= groupCount}
         >
           {isGrouping ? "그룹화 중..." : "그룹화"}
         </Button>
       </div>
+
+      {selectedPlaces.length <= groupCount && (
+        <div className="mb-4 p-2 bg-orange-50 border border-orange-200 rounded-lg">
+          <p className="text-sm text-orange-700">
+            그룹화하려면 그룹 수({groupCount}개)보다 많은 장소를 선택해주세요.
+          </p>
+        </div>
+      )}
 
       {/* 그룹 수 설정 슬라이더 */}
       <div className="mb-4 p-3 bg-gray-50 rounded-lg flex-shrink-0">
@@ -124,7 +132,7 @@ function SelectedPlaceList() {
 
       {/* 스크롤 가능한 장소 리스트 */}
       <div className="flex-1 overflow-y-auto min-h-0">
-        <ul className="space-y-2 pb-15">
+        <ul className="space-y-2 pb-6">
           {selectedPlaces.map((place, index) => (
             <li
               key={`${place.place_name}-${index}`}
