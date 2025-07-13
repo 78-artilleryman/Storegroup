@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "StroeGroup",
+  title: "StoreGroup",
   description: "매장 그룹화해드려요",
   viewport: {
     width: "device-width",

@@ -76,7 +76,7 @@ function SelectedPlaceList() {
   }
 
   return (
-    <div className="max-w-[420px] mx-auto p-4 max-h-[calc(100vh-70px)] flex flex-col">
+    <div className="max-w-[420px] mx-auto p-4 max-h-[calc(100vh-150px)] flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-lg font-bold">
           선택된 장소 ({selectedPlaces.length}개)
@@ -86,7 +86,7 @@ function SelectedPlaceList() {
           size="sm"
           className="h-8 text-sm font-medium bg-blue-500 hover:bg-blue-600"
           onClick={handleGrouping}
-          disabled={isGrouping || selectedPlaces.length <= groupCount}
+          disabled={isGrouping || selectedPlaces.length < groupCount}
         >
           {isGrouping ? "그룹화 중..." : "그룹화"}
         </Button>
