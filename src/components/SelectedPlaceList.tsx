@@ -84,7 +84,7 @@ function SelectedPlaceList() {
         <Button
           variant="default"
           size="sm"
-          className="h-8 text-sm font-medium bg-blue-600 hover:bg-blue-700"
+          className="h-8 text-sm font-medium bg-blue-500 hover:bg-blue-600"
           onClick={handleGrouping}
           disabled={isGrouping || selectedPlaces.length === 0}
         >
@@ -95,8 +95,8 @@ function SelectedPlaceList() {
       {/* 그룹 수 설정 슬라이더 */}
       <div className="mb-4 p-3 bg-gray-50 rounded-lg flex-shrink-0">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-700">그룹 수</span>
-          <span className="text-sm font-bold text-blue-600">
+          <span className="text-sm font-bold text-gray-700">그룹 수</span>
+          <span className="text-sm font-bold text-blue-500">
             {groupCount}개
           </span>
         </div>
@@ -116,8 +116,8 @@ function SelectedPlaceList() {
             }}
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>2</span>
-            <span>10</span>
+            <span className="font-bold">2</span>
+            <span className="font-bold">10</span>
           </div>
         </div>
       </div>

@@ -47,7 +47,11 @@ function SearchInput() {
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
       />
-      <Button type="submit" variant="outline">
+      <Button
+        type="submit"
+        variant="default"
+        className="h-8 text-sm font-medium bg-blue-500 hover:bg-blue-600"
+      >
         검색
       </Button>
     </form>
