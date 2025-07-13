@@ -124,7 +124,7 @@ function SelectedPlaceList() {
 
       {/* 스크롤 가능한 장소 리스트 */}
       <div className="flex-1 overflow-y-auto min-h-0">
-        <ul className="space-y-2 pb-10">
+        <ul className="space-y-2 pb-12">
           {selectedPlaces.map((place, index) => (
             <li
               key={`${place.place_name}-${index}`}
