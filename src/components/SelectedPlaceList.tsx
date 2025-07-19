@@ -7,13 +7,19 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 
 function SelectedPlaceList() {
+  const router = useRouter();
+
   const [isGrouping, setIsGrouping] = useState(false);
   const [groupCount, setGroupCount] = useState(3);
-  const router = useRouter();
+
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
   const removeSelectedPlace = useSearchStore(
     (state) => state.removeSelectedPlace
   );
+  const clearSelectedPlaces = useSearchStore(
+    (state) => state.clearSelectedPlaces
+  );
+
   const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
 
   const handleGrouping = async () => {
@@ -63,6 +69,18 @@ function SelectedPlaceList() {
       alert("그룹화 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
     } finally {
       setIsGrouping(false);
+    }
+  };
+
+  const handleClearAll = () => {
+    if (selectedPlaces.length === 0) return;
+
+    const confirmed = window.confirm(
+      `선택된 ${selectedPlaces.length}개의 장소를 모두 삭제하시겠습니까?`
+    );
+
+    if (confirmed) {
+      clearSelectedPlaces();
     }
   };
 
@@ -128,6 +146,19 @@ function SelectedPlaceList() {
             <span className="font-bold">10</span>
           </div>
         </div>
+      </div>
+
+      {/* 전체 삭제 버튼 */}
+      <div className="mb-4 flex-shrink-0">
+        <Button
+          variant="destructive"
+          size="sm"
+          className="w-full h-8 text-sm font-medium"
+          onClick={handleClearAll}
+          disabled={isGrouping || selectedPlaces.length === 0}
+        >
+          전체 삭제 ({selectedPlaces.length}개)
+        </Button>
       </div>
 
       {/* 스크롤 가능한 장소 리스트 */}
