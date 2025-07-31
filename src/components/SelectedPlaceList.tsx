@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import { useSearchStore } from "@/store";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { Switch } from "./ui/switch";
 
 function SelectedPlaceList() {
   const router = useRouter();
 
   const [isGrouping, setIsGrouping] = useState(false);
-  const [groupCount, setGroupCount] = useState(3);
 
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
   const removeSelectedPlace = useSearchStore(
@@ -19,6 +19,12 @@ function SelectedPlaceList() {
   const clearSelectedPlaces = useSearchStore(
     (state) => state.clearSelectedPlaces
   );
+
+  // 그룹 수 및 밸런스 설정
+  const groupCount = useSearchStore((state) => state.groupCount);
+  const setGroupCount = useSearchStore((state) => state.setGroupCount);
+  const balance = useSearchStore((state) => state.balance);
+  const setBalance = useSearchStore((state) => state.setBalance);
 
   const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
 
@@ -37,9 +43,8 @@ function SelectedPlaceList() {
           latitude: parseFloat(place.y),
           longitude: parseFloat(place.x),
         })),
+        options: balance,
       };
-
-      console.log("Sending data:", requestData);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/cluster`,
@@ -57,7 +62,6 @@ function SelectedPlaceList() {
       }
 
       const result = await response.json();
-      console.log("Grouping result:", result);
 
       // 그룹화 결과를 전역 상태에 저장
       setGroupingResult(result);
@@ -118,33 +122,73 @@ function SelectedPlaceList() {
         </div>
       )}
 
-      {/* 그룹 수 설정 슬라이더 */}
-      <div className="mb-4 p-3 bg-gray-50 rounded-lg flex-shrink-0">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-bold text-gray-700">그룹 수</span>
-          <span className="text-sm font-bold text-blue-500">
-            {groupCount}개
-          </span>
-        </div>
-        <div className="relative">
-          <input
-            type="range"
-            min="2"
-            max="10"
-            value={groupCount}
-            onChange={(e) => setGroupCount(Number(e.target.value))}
-            disabled={isGrouping}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
-            style={{
-              background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${
-                ((groupCount - 2) / 8) * 100
-              }%, #E5E7EB ${((groupCount - 2) / 8) * 100}%, #E5E7EB 100%)`,
-            }}
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span className="font-bold">2</span>
-            <span className="font-bold">10</span>
+      {/* 그룹 설정 및 밸런스 */}
+      <div className="mb-4 space-y-3 flex-shrink-0">
+        {/* 그룹 수 설정 */}
+        <div className="bg-white rounded-xl p-4 shadow-sm">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-semibold text-gray-800">
+                그룹 수
+              </span>
+              <div className="w-8 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                <span className="text-xs font-bold text-blue-600">
+                  {groupCount}
+                </span>
+              </div>
+            </div>
           </div>
+          <div className="relative">
+            <input
+              type="range"
+              min="2"
+              max="10"
+              value={groupCount}
+              onChange={(e) => setGroupCount(Number(e.target.value))}
+              disabled={isGrouping}
+              className="w-full h-2 bg-gray-100 rounded-full appearance-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 slider"
+              style={{
+                background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${
+                  ((groupCount - 2) / 8) * 100
+                }%, #E5E7EB ${((groupCount - 2) / 8) * 100}%, #E5E7EB 100%)`,
+              }}
+            />
+            <div className="flex justify-between text-xs text-gray-400 mt-2">
+              <span className="font-medium">2</span>
+              <span className="font-medium">10</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 밸런스 설정 */}
+        <div className="bg-white rounded-xl p-4 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-semibold text-gray-800">
+                Balance
+              </span>
+              <div
+                className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  balance === 1
+                    ? "bg-blue-100 text-blue-600"
+                    : "bg-gray-100 text-gray-500"
+                }`}
+              >
+                {balance === 0 ? "OFF" : "ON"}
+              </div>
+            </div>
+            <Switch
+              checked={balance === 1}
+              onCheckedChange={(checked) => setBalance(checked ? 1 : 0)}
+              disabled={isGrouping}
+              className="data-[state=checked]:bg-blue-500"
+            />
+          </div>
+          <p className="text-xs text-gray-500 mt-2">
+            {balance === 0
+              ? "그룹 간 장소 수 균형을 고려하지 않습니다"
+              : "그룹 간 장소 수 균형을 맞춥니다"}
+          </p>
         </div>
       </div>
 

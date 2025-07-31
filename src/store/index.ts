@@ -37,6 +37,12 @@ interface SearchStore {
   // eslint-disable-next-line no-unused-vars
   isPlaceSelected: (place: Place) => boolean;
   clearSelectedPlaces: () => void;
+  groupCount: number;
+  // eslint-disable-next-line no-unused-vars
+  setGroupCount: (count: number) => void;
+  balance: number;
+  // eslint-disable-next-line no-unused-vars
+  setBalance: (balance: number) => void;
   groupingResult: GroupingResponse | null;
   // eslint-disable-next-line no-unused-vars
   setGroupingResult: (result: GroupingResponse) => void;
@@ -80,6 +86,10 @@ export const useSearchStore = create<SearchStore>()(
         );
       },
       clearSelectedPlaces: () => set({ selectedPlaces: [] }),
+      groupCount: 3,
+      setGroupCount: (count) => set({ groupCount: count }),
+      balance: 0,
+      setBalance: (balance) => set({ balance }),
       groupingResult: null,
       setGroupingResult: (result) => set({ groupingResult: result }),
       clearGroupingResult: () => set({ groupingResult: null }),
