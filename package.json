@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "bedrock dev",
+    "build": "bedrock build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "ait deploy"
   },
   "dependencies": {
+    "@apps-in-toss/web-framework": "^0.0.34",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
