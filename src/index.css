@@ -115,6 +115,9 @@
   }
   body {
     @apply bg-gray-100 text-gray-900;
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior: contain;
   }
 }
 
