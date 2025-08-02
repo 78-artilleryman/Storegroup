@@ -7,7 +7,6 @@ export interface Place {
   road_address_name: string;
   x: string;
   y: string;
-  thumbnail_url?: string;
 }
 
 export interface ClusterPlace {

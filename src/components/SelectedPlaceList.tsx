@@ -222,19 +222,6 @@ function SelectedPlaceList() {
               key={`${place.place_name}-${index}`}
               className="flex gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-gray-200 transition-colors"
             >
-              {place.thumbnail_url ? (
-                <div className="relative w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
-                  <img
-                    src={place.thumbnail_url}
-                    alt={place.place_name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="w-16 h-16 bg-gray-50 rounded-md flex items-center justify-center flex-shrink-0">
-                  <span className="text-gray-400 text-xs">No Image</span>
-                </div>
-              )}
               <div className="flex-1 min-w-0 py-0.5">
                 <h3 className="font-medium text-sm truncate">
                   {place.place_name}
