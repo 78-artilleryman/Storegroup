@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
 import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
+import { performGrouping } from "@/services/groupingApi";
 
 function SelectedPlaceList() {
   const navigate = useNavigate();
@@ -31,40 +32,7 @@ function SelectedPlaceList() {
     try {
       setIsGrouping(true);
 
-      // 환경변수 확인
-      const baseUrl = import.meta.env.VITE_BASE_URL;
-
-      // 선택된 장소들을 요청 형식에 맞게 변환
-      const requestData = {
-        group: groupCount,
-        place: selectedPlaces.map((place) => ({
-          name: place.place_name,
-          address: place.road_address_name || place.address_name,
-          latitude: parseFloat(place.y),
-          longitude: parseFloat(place.x),
-        })),
-        option: balance,
-      };
-
-      const apiUrl = `${baseUrl}/cluster`;
-
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("서버 에러 응답:", errorText);
-        throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorText}`
-        );
-      }
-
-      const result = await response.json();
+      const result = await performGrouping(selectedPlaces, groupCount, balance);
 
       // 그룹화 결과를 전역 상태에 저장
       setGroupingResult(result);
