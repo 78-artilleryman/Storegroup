@@ -97,9 +97,10 @@ export const useSearchStore = create<SearchStore>()(
     {
       name: "toss-group-storage", // 로컬스토리지 키 이름
       partialize: (state) => ({
+        places: state.places, // 검색 결과도 저장하여 페이지 이동 후에도 마커 유지
         selectedPlaces: state.selectedPlaces,
         groupingResult: state.groupingResult,
-      }), // 저장할 상태만 선택 (places는 검색 결과이므로 제외)
+      }),
     }
   )
 );

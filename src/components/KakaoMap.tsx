@@ -34,6 +34,14 @@ function KakaoMap({
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
       mapRef.current = map;
+      setIsMapReady(true);
+
+      // 맵이 완전히 준비된 후 기존 places가 있으면 마커 표시
+      setTimeout(() => {
+        if (places.length > 0) {
+          displayMarkers();
+        }
+      }, 100);
     });
   };
 
