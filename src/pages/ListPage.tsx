@@ -1,4 +1,3 @@
-import React from "react";
 import SelectedPlaceList from "@/components/SelectedPlaceList";
 
 function ListPage() {

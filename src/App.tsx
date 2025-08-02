@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Home from "@/pages/Home";
 import GroupPage from "@/pages/GroupPage";
 import ListPage from "@/pages/ListPage";
+import LoadingPage from "@/pages/LoadingPage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/loading" element={<LoadingPage />} />
           <Route path="/group" element={<GroupPage />} />
           <Route path="/list" element={<ListPage />} />
         </Routes>

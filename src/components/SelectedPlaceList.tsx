@@ -1,14 +1,10 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
 import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
-import { performGrouping } from "@/services/groupingApi";
 
 function SelectedPlaceList() {
   const navigate = useNavigate();
-
-  const [isGrouping, setIsGrouping] = useState(false);
 
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
   const removeSelectedPlace = useSearchStore(
@@ -24,33 +20,17 @@ function SelectedPlaceList() {
   const balance = useSearchStore((state) => state.balance);
   const setBalance = useSearchStore((state) => state.setBalance);
 
-  const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
-
   const handleGrouping = async () => {
-    if (selectedPlaces.length < groupCount || isGrouping) return;
+    if (selectedPlaces.length < groupCount) return;
 
-    try {
-      setIsGrouping(true);
-
-      const result = await performGrouping(selectedPlaces, groupCount, balance);
-
-      // 그룹화 결과를 전역 상태에 저장
-      setGroupingResult(result);
-
-      // 그룹화가 완료되면 그룹 페이지로 이동
-      navigate("/group");
-    } catch (error) {
-      console.error("그룹화 요청 중 오류가 발생했습니다:", error);
-
-      // 더 자세한 에러 메시지 표시
-      if (error instanceof Error) {
-        alert(`오류: ${error.message}`);
-      } else {
-        alert("알 수 없는 오류가 발생했습니다. 콘솔을 확인해주세요.");
-      }
-    } finally {
-      setIsGrouping(false);
+    // 유효성 검증
+    if (selectedPlaces.length === 0) {
+      alert("선택된 장소가 없습니다.");
+      return;
     }
+
+    // 로딩 페이지로 이동 (실제 API 호출은 로딩 페이지에서 처리)
+    navigate("/loading");
   };
 
   const handleClearAll = () => {
@@ -85,9 +65,9 @@ function SelectedPlaceList() {
           size="sm"
           className="h-8 text-sm font-medium bg-blue-500 hover:bg-blue-600"
           onClick={handleGrouping}
-          disabled={isGrouping || selectedPlaces.length < groupCount}
+          disabled={selectedPlaces.length < groupCount}
         >
-          {isGrouping ? "그룹화 중..." : "그룹화"}
+          그룹화
         </Button>
       </div>
 
@@ -122,7 +102,6 @@ function SelectedPlaceList() {
               max="10"
               value={groupCount}
               onChange={(e) => setGroupCount(Number(e.target.value))}
-              disabled={isGrouping}
               className="w-full h-2 bg-gray-100 rounded-full appearance-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 slider"
               style={{
                 background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${
@@ -157,7 +136,6 @@ function SelectedPlaceList() {
             <Switch
               checked={balance === 1}
               onCheckedChange={(checked) => setBalance(checked ? 1 : 0)}
-              disabled={isGrouping}
               className="data-[state=checked]:bg-blue-500"
             />
           </div>
@@ -176,7 +154,7 @@ function SelectedPlaceList() {
           size="sm"
           className="w-full h-8 text-sm font-medium"
           onClick={handleClearAll}
-          disabled={isGrouping || selectedPlaces.length === 0}
+          disabled={selectedPlaces.length === 0}
         >
           전체 삭제 ({selectedPlaces.length}개)
         </Button>
@@ -207,7 +185,7 @@ function SelectedPlaceList() {
                     size="sm"
                     className="h-6 text-xs font-medium"
                     onClick={() => removeSelectedPlace(place)}
-                    disabled={isGrouping}
+                    disabled={false}
                   >
                     삭제
                   </Button>
