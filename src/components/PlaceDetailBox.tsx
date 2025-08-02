@@ -1,4 +1,3 @@
-import React from "react";
 import { ClusterPlace } from "@/store";
 
 interface PlaceDetailBoxProps {

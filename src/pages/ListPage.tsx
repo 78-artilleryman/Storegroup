@@ -1,7 +1,7 @@
 import React from "react";
 import SelectedPlaceList from "@/components/SelectedPlaceList";
 
-function Listpage() {
+function ListPage() {
   return (
     <main className="min-h-[calc(100vh-120px)] bg-gray-50 pt-4">
       <SelectedPlaceList />
@@ -9,4 +9,4 @@ function Listpage() {
   );
 }
 
-export default Listpage;
+export default ListPage;

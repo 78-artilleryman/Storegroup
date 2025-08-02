@@ -1,7 +1,4 @@
-"use client";
-
 import { memo } from "react";
-import Image from "next/image";
 import { Button } from "./ui/button";
 import { Place } from "@/store";
 
@@ -18,12 +15,10 @@ const StoreListItem = memo(
       <li className="flex gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
         {place.thumbnail_url ? (
           <div className="relative w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
-            <Image
+            <img
               src={place.thumbnail_url}
               alt={place.place_name}
-              fill
-              className="object-cover"
-              sizes="64px"
+              className="w-full h-full object-cover"
             />
           </div>
         ) : (

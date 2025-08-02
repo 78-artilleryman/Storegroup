@@ -1,9 +1,7 @@
-"use client";
-
-import React, { useEffect, useRef } from "react";
-import Script from "next/script";
+import { useEffect, useRef, useState } from "react";
 import StoreListBottomSheet from "./StoreListBottomSheet";
 import { useSearchStore } from "@/store";
+import { loadKakaoMapScript } from "@/utils/kakaoLoader";
 
 interface MapProps {
   lat?: string | null;
@@ -25,6 +23,7 @@ function KakaoMap({
   const mapRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
   const places = useSearchStore((state) => state.places);
+  const [, setIsMapReady] = useState(false);
 
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
@@ -77,14 +76,24 @@ function KakaoMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [places]);
 
+  useEffect(() => {
+    const initializeMap = async () => {
+      try {
+        console.log("카카오맵 스크립트 로딩 시작...");
+        await loadKakaoMapScript();
+        console.log("카카오맵 스크립트 로드 완료, 맵 초기화 시작");
+        loadKakaoMap();
+        setIsMapReady(true);
+      } catch (error) {
+        console.error("카카오맵 초기화 실패:", error);
+      }
+    };
+
+    initializeMap();
+  }, []);
+
   return (
     <>
-      <Script
-        strategy="afterInteractive"
-        type="text/javascript"
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
-        onReady={loadKakaoMap}
-      />
       <div id="map" className="w-full h-[calc(100vh-120px)]" />
       <StoreListBottomSheet />
     </>

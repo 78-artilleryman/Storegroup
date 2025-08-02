@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/web/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StoreGroup</title>
+    <meta name="description" content="매장 그룹화해드려요" />
+
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="StoreGroup" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="StoreGroup" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "%VITE_GA_MEASUREMENT_ID%", {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    </script>
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/web/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/web/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+  </head>
+  <body class="antialiased bg-gray-100 overflow-hidden">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

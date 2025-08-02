@@ -1,14 +1,11 @@
-"use client";
-
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
-import Image from "next/image";
 import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
 
 function SelectedPlaceList() {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const [isGrouping, setIsGrouping] = useState(false);
 
@@ -29,7 +26,7 @@ function SelectedPlaceList() {
   const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
 
   const handleGrouping = async () => {
-    if (selectedPlaces.length <= groupCount || isGrouping) return;
+    if (selectedPlaces.length < groupCount || isGrouping) return;
 
     try {
       setIsGrouping(true);
@@ -43,19 +40,16 @@ function SelectedPlaceList() {
           latitude: parseFloat(place.y),
           longitude: parseFloat(place.x),
         })),
-        options: balance,
+        option: balance,
       };
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/cluster`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        }
-      );
+      const response = await fetch(`${process.env.VITE_BASE_URL}/cluster`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -67,7 +61,7 @@ function SelectedPlaceList() {
       setGroupingResult(result);
 
       // 그룹화가 완료되면 그룹 페이지로 이동
-      router.push("/group");
+      navigate("/group");
     } catch (error) {
       console.error("그룹화 요청 중 오류가 발생했습니다:", error);
       alert("그룹화 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -215,12 +209,10 @@ function SelectedPlaceList() {
             >
               {place.thumbnail_url ? (
                 <div className="relative w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
-                  <Image
+                  <img
                     src={place.thumbnail_url}
                     alt={place.place_name}
-                    fill
-                    className="object-cover"
-                    sizes="64px"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ) : (

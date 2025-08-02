@@ -1,17 +1,14 @@
-"use client";
-
-import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "react-router-dom";
 
 function Header() {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
 
   return (
     <div className="w-full bg-white border-b">
       <div className="w-full flex justify-between">
         <Link
-          href="/"
+          to="/"
           className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
             ${
               pathname === "/"
@@ -22,7 +19,7 @@ function Header() {
           장소
         </Link>
         <Link
-          href="/list"
+          to="/list"
           className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
             ${
               pathname === "/list"
@@ -33,7 +30,7 @@ function Header() {
           리스트
         </Link>
         <Link
-          href="/group"
+          to="/group"
           className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
             ${
               pathname === "/group"

@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useCallback, memo, useRef } from "react";
 import { useSearchStore } from "@/store";
 import { Place } from "@/store";

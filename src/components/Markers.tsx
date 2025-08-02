@@ -1,5 +1,3 @@
-"use client";
-
 import { ClusterPlace } from "@/store";
 import { useCallback, useEffect, useRef } from "react";
 

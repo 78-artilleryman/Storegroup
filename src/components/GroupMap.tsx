@@ -1,11 +1,10 @@
-"use client";
+import { useState, useEffect, useRef } from "react";
 
-import React, { useState, useEffect, useRef } from "react";
-import Script from "next/script";
 import { useSearchStore, ClusterPlace } from "@/store";
 import { Button } from "@/components/ui/button";
 import PlaceDetailBox from "./PlaceDetailBox";
 import Markers from "./Markers";
+import { loadKakaoMapScript } from "@/utils/kakaoLoader";
 
 declare global {
   interface Window {
@@ -101,15 +100,23 @@ function GroupMap() {
 
   const groups = Object.keys(groupingResult.result);
 
+  useEffect(() => {
+    const initializeMap = async () => {
+      try {
+        console.log("그룹맵 카카오맵 스크립트 로딩 시작...");
+        await loadKakaoMapScript();
+        console.log("그룹맵 카카오맵 스크립트 로드 완료, 맵 초기화 시작");
+        loadKakaoMap();
+      } catch (error) {
+        console.error("그룹맵 카카오맵 초기화 실패:", error);
+      }
+    };
+
+    initializeMap();
+  }, []);
+
   return (
     <>
-      <Script
-        strategy="afterInteractive"
-        type="text/javascript"
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
-        onReady={loadKakaoMap}
-      />
-
       {/* 그룹 선택 버튼들 */}
       <div className="bg-white border-b border-gray-200 p-4">
         <div className="max-w-[420px] mx-auto">
