@@ -31,6 +31,9 @@ function SelectedPlaceList() {
     try {
       setIsGrouping(true);
 
+      // 환경변수 확인
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+
       // 선택된 장소들을 요청 형식에 맞게 변환
       const requestData = {
         group: groupCount,
@@ -43,7 +46,9 @@ function SelectedPlaceList() {
         option: balance,
       };
 
-      const response = await fetch(`${process.env.VITE_BASE_URL}/cluster`, {
+      const apiUrl = `${baseUrl}/cluster`;
+
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +57,11 @@ function SelectedPlaceList() {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error("서버 에러 응답:", errorText);
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${errorText}`
+        );
       }
 
       const result = await response.json();
@@ -64,7 +73,13 @@ function SelectedPlaceList() {
       navigate("/group");
     } catch (error) {
       console.error("그룹화 요청 중 오류가 발생했습니다:", error);
-      alert("그룹화 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
+
+      // 더 자세한 에러 메시지 표시
+      if (error instanceof Error) {
+        alert(`오류: ${error.message}`);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다. 콘솔을 확인해주세요.");
+      }
     } finally {
       setIsGrouping(false);
     }
