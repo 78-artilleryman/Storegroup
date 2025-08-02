@@ -6,13 +6,17 @@ import { searchPlacesByKeyword } from "@/services/kakaoApi";
 
 function SearchInput() {
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const setPlaces = useSearchStore((state) => state.setPlaces);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const searchPlaces = async () => {
     if (!searchKeyword.trim()) return;
 
+    const startTime = Date.now();
+
     try {
+      setIsLoading(true);
       const places = await searchPlacesByKeyword(searchKeyword);
       setPlaces(places);
     } catch (error) {
@@ -27,6 +31,18 @@ function SearchInput() {
           );
         }
       }
+    } finally {
+      // 최소 1초는 로딩 스피너를 보여주기
+      const elapsedTime = Date.now() - startTime;
+      const minLoadingTime = 1000; // 1초
+
+      if (elapsedTime < minLoadingTime) {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, minLoadingTime - elapsedTime);
+      } else {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -40,23 +56,37 @@ function SearchInput() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full flex items-center gap-2">
-      <Input
-        ref={inputRef}
-        placeholder="검색어를 입력하세요"
-        value={searchKeyword}
-        onChange={(e) => setSearchKeyword(e.target.value)}
-        className="flex-1"
-      />
-      <Button
-        type="submit"
-        variant="default"
-        size="default"
-        className="shrink-0 px-4"
-      >
-        검색
-      </Button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} className="w-full flex items-center gap-2">
+        <Input
+          ref={inputRef}
+          placeholder="검색어를 입력하세요"
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+          className="flex-1"
+          disabled={isLoading}
+        />
+        <Button
+          type="submit"
+          variant="default"
+          size="default"
+          className="shrink-0 px-4"
+          disabled={isLoading}
+        >
+          검색
+        </Button>
+      </form>
+
+      {/* 로딩 스피너 오버레이 */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 flex flex-col items-center space-y-4">
+            <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-sm text-gray-600">검색 중...</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

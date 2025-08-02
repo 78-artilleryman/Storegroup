@@ -1,4 +1,3 @@
-import React from "react";
 import GroupMap from "@/components/GroupMap";
 
 function GroupPage() {
