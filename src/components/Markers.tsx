@@ -26,6 +26,7 @@ function Markers({
   onPlaceClick,
 }: MarkersProps) {
   const markersRef = useRef<any[]>([]);
+  const hasSetInitialBoundsRef = useRef<boolean>(false);
 
   // 커스텀 마커 HTML 생성
   const createCustomMarkerContent = (
@@ -77,6 +78,52 @@ function Markers({
     markersRef.current.forEach((marker) => marker.setMap(null));
     markersRef.current = [];
   }, []);
+
+  // 그룹 변경 시 bounds 조정 허용
+  useEffect(() => {
+    hasSetInitialBoundsRef.current = false;
+  }, [selectedGroup]);
+
+  // 지도 사용자 상호작용 감지
+  useEffect(() => {
+    if (!map) return;
+
+    const handleMapInteraction = () => {
+      hasSetInitialBoundsRef.current = true;
+    };
+
+    // 지도 이벤트 리스너 등록
+    window.kakao.maps.event.addListener(
+      map,
+      "zoom_changed",
+      handleMapInteraction
+    );
+    window.kakao.maps.event.addListener(
+      map,
+      "center_changed",
+      handleMapInteraction
+    );
+    window.kakao.maps.event.addListener(map, "dragend", handleMapInteraction);
+
+    return () => {
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      window.kakao.maps.event.removeListener(
+        map,
+        "zoom_changed",
+        handleMapInteraction
+      );
+      window.kakao.maps.event.removeListener(
+        map,
+        "center_changed",
+        handleMapInteraction
+      );
+      window.kakao.maps.event.removeListener(
+        map,
+        "dragend",
+        handleMapInteraction
+      );
+    };
+  }, [map]);
 
   const displayGroupMarkers = useCallback(() => {
     if (!map || places.length === 0) return;
@@ -157,8 +204,8 @@ function Markers({
       }
     };
 
-    // 모든 마커가 보이도록 지도 범위 조정
-    if (places.length > 0) {
+    // 사용자가 지도를 조작하지 않은 경우에만 지도 범위 조정
+    if (places.length > 0 && !hasSetInitialBoundsRef.current) {
       map.setBounds(bounds);
     }
   }, [
