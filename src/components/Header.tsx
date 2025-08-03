@@ -4,11 +4,23 @@ function Header() {
   const location = useLocation();
   const pathname = location.pathname;
 
+  // GA4 가상 페이지 뷰 추적 함수
+  const trackPageView = (pageTitle: string, pagePath: string) => {
+    if (typeof window !== "undefined" && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: "virtual_page_view",
+        page_title: pageTitle,
+        page_path: pagePath,
+      });
+    }
+  };
+
   return (
     <div className="w-full bg-white border-b">
       <div className="w-full flex justify-between">
         <Link
           to="/"
+          onClick={() => trackPageView("검색 탭", "/search")}
           className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
             ${
               pathname === "/"
@@ -20,6 +32,7 @@ function Header() {
         </Link>
         <Link
           to="/list"
+          onClick={() => trackPageView("리스트 탭", "/list")}
           className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
             ${
               pathname === "/list"
@@ -31,6 +44,7 @@ function Header() {
         </Link>
         <Link
           to="/group"
+          onClick={() => trackPageView("그룹 지도 탭", "/map")}
           className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
             ${
               pathname === "/group" || pathname === "/loading"
