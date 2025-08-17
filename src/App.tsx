@@ -4,6 +4,8 @@ import Home from "@/pages/Home";
 import GroupPage from "@/pages/GroupPage";
 import ListPage from "@/pages/ListPage";
 import LoadingPage from "@/pages/LoadingPage";
+import LandingPage from "@/pages/LandingPage";
+import LoginPage from "@/pages/LoginPage";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route path="/loading" element={<LoadingPage />} />
           <Route path="/group" element={<GroupPage />} />
           <Route path="/list" element={<ListPage />} />
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
     </Router>
