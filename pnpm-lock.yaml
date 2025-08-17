@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@apps-in-toss/web-framework':
-        specifier: ^0.0.34
-        version: 0.0.34(typanion@3.14.0)
+        specifier: ^0.0.39
+        version: 0.0.39(typanion@3.14.0)
       '@radix-ui/react-dialog':
         specifier: ^1.1.14
         version: 1.1.14(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -101,27 +101,27 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@apps-in-toss/bridge-core@0.0.34':
-    resolution: {integrity: sha512-HX9j/UTMbwxzwz/Of2AdIfKnzfGbTrEUtI1gZ41o3p06idCT6qbip6dz18Pa0yEw6AKec2IWnvjSWtfUTJlt/Q==}
+  '@apps-in-toss/bridge-core@0.0.39':
+    resolution: {integrity: sha512-BWImF0Q1WmFeSS9JyTbl0TtFBQK8H7cHLNJLkzd4DDF7/DmjLwGw2T6gmbwM0gkTjE4Lh3UR/4Q/kQr1eNfiDg==}
 
-  '@apps-in-toss/cli@0.0.34':
-    resolution: {integrity: sha512-aZvj3YTVEsfzbdhhgzo9iCjePQwj/UlF476uNhsNCkB9pXM+MzxzrWXAbyqyff7WCzlVcCr4fp5usag+lNJAbQ==}
+  '@apps-in-toss/cli@0.0.39':
+    resolution: {integrity: sha512-13FavrsRKQogM6NBDYzdZXgNGZqihImPTSSpV6qSNPShPErIEfp2Z4OqQE38BqO56B0ZjvK75Y2dyCF4I9Ohzw==}
 
-  '@apps-in-toss/plugins@0.0.34':
-    resolution: {integrity: sha512-PTaT6XL8HSbEVg435rZFM3lrw5v00A6+zZ9vI79uVNz6Lytz2L+T1c5FB88mWwu/EuD6F1kKQ4yO8TJrOYMaTQ==}
+  '@apps-in-toss/plugins@0.0.39':
+    resolution: {integrity: sha512-GYAW7c2QQkf6/FV0QktKHbbx8W12eRZ7N8Ox0QzfgN6SwURmX2rtWC3FMSY1OJeCsbK0XHOvL1ZOnwEUBIsX5w==}
 
-  '@apps-in-toss/web-analytics@0.0.34':
-    resolution: {integrity: sha512-OJRdlgCU191qsgZZ4TiuBckyAXMlc5vxr1FJkcmMaZqRsMdNFYORpRLkPIn30OGdLq0aQwK7INEkuWKs94ErgQ==}
+  '@apps-in-toss/web-analytics@0.0.39':
+    resolution: {integrity: sha512-a7naUNz+7Jb4H3ExB7oqCqjWzZFbSlLwMZONuy6XlOrM7fN8YJpXR59QSg3H/kisNXg42f+3ZvSJ/20r6JJeVA==}
     peerDependencies:
       '@apps-in-toss/web-bridge': '*'
 
-  '@apps-in-toss/web-bridge@0.0.34':
-    resolution: {integrity: sha512-wAOFn8/sFYGQIBjXsj75P+yB32qdSeAc4p5L64IZX44SLjoJ4qQ15tQ0SmX2g/513RbB16rRXzYj/A8YnF8M+g==}
+  '@apps-in-toss/web-bridge@0.0.39':
+    resolution: {integrity: sha512-lsBm18dkFc3uDkMb2ados1kDmmfJRVfm/r8D1/h6XfzLm7XMb/9UOKaOcAX/6mgBHuyP6TQOC+6LOMqKDMWq9w==}
     peerDependencies:
       '@apps-in-toss/bridge-core': '*'
 
-  '@apps-in-toss/web-framework@0.0.34':
-    resolution: {integrity: sha512-fo/qoE07WHB7FJy0A5q0u2Di8UXUuUJQ1+VUWIOM5HF5ZgkAw4cPYVTEt1DSkbdh0HtkJslpg9LUMCuS0dJTqQ==}
+  '@apps-in-toss/web-framework@0.0.39':
+    resolution: {integrity: sha512-/MMbtIxxk0U+24/2UGfeIs+ZpV9I1OEiP5/WUiqzUfhTIfch5dTokQGdHUCHVSTkINfRyau9DSP898JmdMnEFg==}
     hasBin: true
 
   '@babel/code-frame@7.27.1':
@@ -2291,9 +2291,9 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
 
-  '@apps-in-toss/bridge-core@0.0.34': {}
+  '@apps-in-toss/bridge-core@0.0.39': {}
 
-  '@apps-in-toss/cli@0.0.34(typanion@3.14.0)':
+  '@apps-in-toss/cli@0.0.39(typanion@3.14.0)':
     dependencies:
       '@clack/prompts': 0.10.1
       '@react-native-bedrock/utils': 0.0.25
@@ -2306,25 +2306,25 @@ snapshots:
       - supports-color
       - typanion
 
-  '@apps-in-toss/plugins@0.0.34':
+  '@apps-in-toss/plugins@0.0.39':
     dependencies:
       esbuild: 0.25.5
 
-  '@apps-in-toss/web-analytics@0.0.34(@apps-in-toss/web-bridge@0.0.34(@apps-in-toss/bridge-core@0.0.34))':
+  '@apps-in-toss/web-analytics@0.0.39(@apps-in-toss/web-bridge@0.0.39(@apps-in-toss/bridge-core@0.0.39))':
     dependencies:
-      '@apps-in-toss/web-bridge': 0.0.34(@apps-in-toss/bridge-core@0.0.34)
+      '@apps-in-toss/web-bridge': 0.0.39(@apps-in-toss/bridge-core@0.0.39)
 
-  '@apps-in-toss/web-bridge@0.0.34(@apps-in-toss/bridge-core@0.0.34)':
+  '@apps-in-toss/web-bridge@0.0.39(@apps-in-toss/bridge-core@0.0.39)':
     dependencies:
-      '@apps-in-toss/bridge-core': 0.0.34
+      '@apps-in-toss/bridge-core': 0.0.39
 
-  '@apps-in-toss/web-framework@0.0.34(typanion@3.14.0)':
+  '@apps-in-toss/web-framework@0.0.39(typanion@3.14.0)':
     dependencies:
-      '@apps-in-toss/bridge-core': 0.0.34
-      '@apps-in-toss/cli': 0.0.34(typanion@3.14.0)
-      '@apps-in-toss/plugins': 0.0.34
-      '@apps-in-toss/web-analytics': 0.0.34(@apps-in-toss/web-bridge@0.0.34(@apps-in-toss/bridge-core@0.0.34))
-      '@apps-in-toss/web-bridge': 0.0.34(@apps-in-toss/bridge-core@0.0.34)
+      '@apps-in-toss/bridge-core': 0.0.39
+      '@apps-in-toss/cli': 0.0.39(typanion@3.14.0)
+      '@apps-in-toss/plugins': 0.0.39
+      '@apps-in-toss/web-analytics': 0.0.39(@apps-in-toss/web-bridge@0.0.39(@apps-in-toss/bridge-core@0.0.39))
+      '@apps-in-toss/web-bridge': 0.0.39(@apps-in-toss/bridge-core@0.0.39)
       '@babel/core': 7.23.9
       '@react-native-bedrock/utils': 0.0.25
     transitivePeerDependencies:
