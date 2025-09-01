@@ -26,6 +26,18 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.11
         version: 4.1.11(vite@5.4.19(@types/node@20.19.9)(lightningcss@1.30.1))
+      '@toss-design-system/color-utils':
+        specifier: ^0.0.1
+        version: 0.0.1
+      '@toss-design-system/colors':
+        specifier: ^0.1.0
+        version: 0.1.0
+      '@toss-design-system/css-utils':
+        specifier: ^0.0.1
+        version: 0.0.1
+      '@toss-design-system/easings':
+        specifier: ^0.0.1
+        version: 0.0.1
       '@toss-design-system/mobile':
         specifier: ^1.1.0
         version: 1.1.0(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -35,6 +47,12 @@ importers:
       '@toss-design-system/mobile-bedrock':
         specifier: ^1.0.0
         version: 1.0.0(@apps-in-toss/web-framework@0.0.39(typanion@3.14.0))(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@toss-design-system/mobile@1.1.0(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@toss-design-system/spring-easing':
+        specifier: ^0.0.1
+        version: 0.0.1
+      '@toss-design-system/typography':
+        specifier: ^0.0.1
+        version: 0.0.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1084,8 +1102,20 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7
 
+  '@toss-design-system/color-utils@0.0.1':
+    resolution: {integrity: sha512-kwWG3WgCKTGgtFA3BPJFUdtV+V5i2SXMtVTX6hoKIe105wlI5TjvanmGXBoXBGGHtmnULyP1ENGAXHwflDj2Mg==}
+
+  '@toss-design-system/colors@0.0.1':
+    resolution: {integrity: sha512-nzDqD87vQxVCn83vYIPND94N9FxRPt7kMK/0IkfoX14jxTXxohSJyy/3zvwMMZbJ7PQz3fwJPyfdY5kGz0hoMQ==}
+
   '@toss-design-system/colors@0.1.0':
     resolution: {integrity: sha512-brXh5vQNX0TqDkkXW9ijOEG2bmYghFAh9NDadGkbTTGTsuuMsMESD1gSplsfsny94sm6IG7O0/n8ZjLqe1zIOw==}
+
+  '@toss-design-system/css-utils@0.0.1':
+    resolution: {integrity: sha512-OdWQMySFCVN2Dy+ZJ/e6E/lX9b9BnqHftH2f8a+fS6JSKXJVaNKIQQlZDlrBrSh0pcPqfGNOIKIM1hMNM4SmsQ==}
+
+  '@toss-design-system/easings@0.0.1':
+    resolution: {integrity: sha512-KfT7xUB2+7DcJV2APa4GfOU6meRx8oRgK0DXXUMvnMmu68snaPVy2RAqlJ52O1QkP8wMYASr+jxhgCd+VUerUw==}
 
   '@toss-design-system/mobile-ait@1.0.0':
     resolution: {integrity: sha512-rbjJgAeszzNfHVMDDyMHHzTjDofEi7/G0q7mK9TfK8TfwJQhV1jGbAvCrDeEcrt39fYXVPwNl/DIlIRg37ykIg==}
@@ -1111,6 +1141,19 @@ packages:
       '@emotion/react': ^11
       react: ^16.8.3 || ^17 || ^18
       react-dom: ^16.8.3 || ^17 || ^18
+
+  '@toss-design-system/spring-easing@0.0.1':
+    resolution: {integrity: sha512-SeIyIOTi6iaUMlNT4pirKGaOQvldswad85XPOnveg0HSm1R4+5hxOyIM6M/xutSo4Z6htKRDSYse4BdpNJN3LQ==}
+
+  '@toss-design-system/typography@0.0.1':
+    resolution: {integrity: sha512-uFdV0SnlndJaRLDjoLaxBCPT5Lv9/cO+g2uWJ8w5jTSWyrZpiJiXgO+AHkfbEpPKEf1Or+Sfu7gzy36ZTu8fTg==}
+
+  '@toss/utility-types@1.2.1':
+    resolution: {integrity: sha512-1y8s1bvmuhuMX/d6qR9mmvcgFZIKYIQqJbAIshlGArXkjk/ec67gXc5uByEV1Y7in9ZhrGNRmjD8DTH0988vpQ==}
+
+  '@toss/utils@1.6.1':
+    resolution: {integrity: sha512-x6m8jLKWtAmCbxTLXbgTzJ5wZyRSUQPLpR/oLJP1ZK9ytXcRf03oA46W/+78kErUkEw/yQz2L+t2xFDHSeZ6IQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1279,6 +1322,9 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  bezier-easing@2.1.0:
+    resolution: {integrity: sha512-gbIqZ/eslnUFC1tjEvtz0sgx+xTK20wDnYMIA27VA04R7w6xxXQPZDbibjA9DTWZRA2CXtwHykkVzlCaAJAZig==}
+
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
@@ -1375,6 +1421,10 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
+  date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+
   debug@4.4.1:
     resolution: {integrity: sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==}
     engines: {node: '>=6.0'}
@@ -1407,6 +1457,9 @@ packages:
   doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
+
+  dot-case@3.0.4:
+    resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
   duplexer2@0.1.4:
     resolution: {integrity: sha512-asLFVfWWtJ90ZyOUHMqk7/S2w2guQKxUI2itj3d92ADHhxUSbCMGi1f1cBcJ7xM1To+pE/Khbwo1yuNbMEPKeA==}
@@ -1797,6 +1850,9 @@ packages:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
+  lower-case@2.0.2:
+    resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
+
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
@@ -1853,6 +1909,12 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  newton-raphson-method@1.0.2:
+    resolution: {integrity: sha512-UoBJJxNVVQhviRvled1bL76IjmPls4dNLPeF661FW2eNrv/pKKfRDpOdlN+vo9XamZvj8OMt/KtjOBTFN6I0gw==}
+
+  no-case@3.0.4:
+    resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
+
   node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
     engines: {node: 4.x || >=6.0.0}
@@ -1901,6 +1963,9 @@ packages:
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
+
+  param-case@3.0.4:
+    resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -3257,7 +3322,21 @@ snapshots:
       tailwindcss: 4.1.11
       vite: 5.4.19(@types/node@20.19.9)(lightningcss@1.30.1)
 
+  '@toss-design-system/color-utils@0.0.1':
+    dependencies:
+      '@toss-design-system/colors': 0.0.1
+      '@toss/utils': 1.6.1
+      bezier-easing: 2.1.0
+
+  '@toss-design-system/colors@0.0.1': {}
+
   '@toss-design-system/colors@0.1.0': {}
+
+  '@toss-design-system/css-utils@0.0.1': {}
+
+  '@toss-design-system/easings@0.0.1':
+    dependencies:
+      '@toss-design-system/spring-easing': 0.0.1
 
   '@toss-design-system/mobile-ait@1.0.0(@apps-in-toss/web-framework@0.0.39(typanion@3.14.0))(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@toss-design-system/mobile@1.1.0(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -3282,6 +3361,23 @@ snapshots:
       '@emotion/react': 11.14.0(@types/react@18.3.23)(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  '@toss-design-system/spring-easing@0.0.1':
+    dependencies:
+      newton-raphson-method: 1.0.2
+
+  '@toss-design-system/typography@0.0.1':
+    dependencies:
+      '@toss-design-system/css-utils': 0.0.1
+      param-case: 3.0.4
+
+  '@toss/utility-types@1.2.1': {}
+
+  '@toss/utils@1.6.1':
+    dependencies:
+      '@babel/runtime': 7.28.3
+      '@toss/utility-types': 1.2.1
+      date-fns: 2.30.0
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -3482,6 +3578,8 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
+  bezier-easing@2.1.0: {}
+
   binary-extensions@2.3.0: {}
 
   bluebird@3.7.2: {}
@@ -3573,6 +3671,10 @@ snapshots:
 
   csstype@3.1.3: {}
 
+  date-fns@2.30.0:
+    dependencies:
+      '@babel/runtime': 7.28.3
+
   debug@4.4.1:
     dependencies:
       ms: 2.1.3
@@ -3594,6 +3696,11 @@ snapshots:
   doctrine@3.0.0:
     dependencies:
       esutils: 2.0.3
+
+  dot-case@3.0.4:
+    dependencies:
+      no-case: 3.0.4
+      tslib: 2.8.1
 
   duplexer2@0.1.4:
     dependencies:
@@ -4021,6 +4128,10 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
+  lower-case@2.0.2:
+    dependencies:
+      tslib: 2.8.1
+
   lru-cache@10.4.3: {}
 
   lru-cache@5.1.1:
@@ -4070,6 +4181,13 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
+  newton-raphson-method@1.0.2: {}
+
+  no-case@3.0.4:
+    dependencies:
+      lower-case: 2.0.2
+      tslib: 2.8.1
+
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
@@ -4108,6 +4226,11 @@ snapshots:
       p-limit: 3.1.0
 
   package-json-from-dist@1.0.1: {}
+
+  param-case@3.0.4:
+    dependencies:
+      dot-case: 3.0.4
+      tslib: 2.8.1
 
   parent-module@1.0.1:
     dependencies:
