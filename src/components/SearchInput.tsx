@@ -1,13 +1,16 @@
 import React, { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useSearchStore } from "@/store";
 import { searchPlacesByKeyword } from "@/services/kakaoApi";
+import { Search, X } from "lucide-react";
 
 function SearchInput() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const setPlaces = useSearchStore((state) => state.setPlaces);
+  const setIsBottomSheetOpen = useSearchStore(
+    (state) => state.setIsBottomSheetOpen
+  );
   const inputRef = useRef<HTMLInputElement>(null);
 
   const searchPlaces = async () => {
@@ -39,9 +42,17 @@ function SearchInput() {
       if (elapsedTime < minLoadingTime) {
         setTimeout(() => {
           setIsLoading(false);
+          // 로딩이 완료된 후 바텀시트 열기
+          setTimeout(() => {
+            setIsBottomSheetOpen(true);
+          }, 100); // 로딩 완료 후 100ms 후에 바텀시트 열기
         }, minLoadingTime - elapsedTime);
       } else {
         setIsLoading(false);
+        // 로딩이 완료된 후 바텀시트 열기
+        setTimeout(() => {
+          setIsBottomSheetOpen(true);
+        }, 100); // 로딩 완료 후 100ms 후에 바텀시트 열기
       }
     }
   };
@@ -55,26 +66,37 @@ function SearchInput() {
     searchPlaces();
   };
 
+  const clearSearch = () => {
+    setSearchKeyword("");
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="w-full flex items-center gap-2">
-        <Input
-          ref={inputRef}
-          placeholder="검색어를 입력하세요"
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
-          className="flex-1"
-          disabled={isLoading}
-        />
-        <Button
-          type="submit"
-          variant="default"
-          size="default"
-          className="shrink-0 px-4"
-          disabled={isLoading}
-        >
-          검색
-        </Button>
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Input
+            ref={inputRef}
+            placeholder="장소를 입력해 보세요"
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            className="pl-10 pr-10"
+            disabled={isLoading}
+          />
+          {searchKeyword && (
+            <button
+              type="button"
+              onClick={clearSearch}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              disabled={isLoading}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </form>
 
       {/* 로딩 스피너 오버레이 */}

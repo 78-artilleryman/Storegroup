@@ -45,6 +45,8 @@ interface SearchStore {
   // eslint-disable-next-line no-unused-vars
   setGroupingResult: (result: GroupingResponse) => void;
   clearGroupingResult: () => void;
+  isBottomSheetOpen: boolean;
+  setIsBottomSheetOpen: (isOpen: boolean) => void;
 }
 
 export const useSearchStore = create<SearchStore>()((set, get) => ({
@@ -89,4 +91,6 @@ export const useSearchStore = create<SearchStore>()((set, get) => ({
   groupingResult: null,
   setGroupingResult: (result) => set({ groupingResult: result }),
   clearGroupingResult: () => set({ groupingResult: null }),
+  isBottomSheetOpen: false,
+  setIsBottomSheetOpen: (isOpen) => set({ isBottomSheetOpen: isOpen }),
 }));
