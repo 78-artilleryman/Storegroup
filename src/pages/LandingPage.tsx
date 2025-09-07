@@ -7,20 +7,21 @@ import {
   FixedBottomCTA,
 } from "@toss-design-system/mobile";
 import { adaptive } from "@toss-design-system/colors";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { appLogin } from "@apps-in-toss/web-framework";
+import { loginApi } from "@/services/loginApi";
 
 export default function Page() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function handleLogin() {
     try {
       const { authorizationCode, referrer } = await appLogin();
-      console.log(authorizationCode, referrer);
-      // 획득한 인가 코드(`authorizationCode`)와 `referrer`를 서버로 전달해요.
-      // navigate("/home");
-
-      // 로그인 성공 시 홈 페이지로 이동
+      const loginApiResponse = await loginApi({ authorizationCode, referrer });
+      if (loginApiResponse.status === 200) {
+        // 로그인 성공 시 홈 페이지로 이동
+        navigate("/home");
+      }
     } catch (error) {
       console.error("토스 로그인 실패:", error);
     }
