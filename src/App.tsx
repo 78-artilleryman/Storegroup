@@ -5,8 +5,11 @@ import IntroPage from "@/pages/LandingPage";
 import GroupPage from "@/pages/GroupPage";
 import ListPage from "@/pages/ListPage";
 import LoadingPage from "@/pages/LoadingPage";
-
 import Home from "@/pages/Home";
+import MorePage from "@/pages/MorePage";
+import SatisfactionPage from "@/pages/SatisfactionPage";
+import OpinionPage from "@/pages/OpinionPage";
+import SuccessPage from "@/pages/SuccessPage";
 
 function App() {
   return (
@@ -49,6 +52,42 @@ function App() {
               <div className="max-w-[420px] mx-auto">
                 <Header />
                 <ListPage />
+              </div>
+            }
+          />
+          <Route
+            path="/more"
+            element={
+              <div className="max-w-[420px] mx-auto">
+                <Header />
+                <MorePage />
+              </div>
+            }
+          />
+          <Route
+            path="/satisfaction"
+            element={
+              <div className="max-w-[420px] mx-auto">
+                <Header />
+                <SatisfactionPage />
+              </div>
+            }
+          />
+          <Route
+            path="/opinion"
+            element={
+              <div className="max-w-[420px] mx-auto">
+                <Header />
+                <OpinionPage />
+              </div>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <div className="max-w-[420px] mx-auto">
+                <Header />
+                <SuccessPage />
               </div>
             }
           />

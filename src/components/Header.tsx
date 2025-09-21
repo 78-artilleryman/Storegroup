@@ -42,6 +42,21 @@ function Header() {
         >
           그룹
         </Link>
+        <Link
+          to="/more"
+          onClick={() => trackPageView("그룹 지도 탭", "/map")}
+          className={`flex-1 w-full text-center py-2.5 font-medium transition-colors relative
+            ${
+              pathname === "/more" ||
+              pathname === "/satisfaction" ||
+              pathname === "/opinion" ||
+              pathname === "/success"
+                ? "text-blue-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-500"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+        >
+          더보기
+        </Link>
       </div>
     </div>
   );
