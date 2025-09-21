@@ -10,15 +10,33 @@ import { adaptive } from "@toss-design-system/colors";
 import { useNavigate } from "react-router-dom";
 import { appLogin } from "@apps-in-toss/web-framework";
 import { loginApi } from "@/services/loginApi";
+import { Storage } from "@apps-in-toss/web-framework";
+
+const accessToken = "accessToken";
+const refreshToken = "refreshToken";
 
 export default function Page() {
   const navigate = useNavigate();
+
+  async function handleSet(
+    accessTokenValue: string,
+    refreshTokenValue: string
+  ) {
+    await Storage.setItem(accessToken, accessTokenValue);
+    await Storage.setItem(refreshToken, refreshTokenValue);
+  }
 
   async function handleLogin() {
     try {
       const { authorizationCode, referrer } = await appLogin();
       const loginApiResponse = await loginApi({ authorizationCode, referrer });
-      if (loginApiResponse.status === 200) {
+
+      // 토큰이 존재하는 경우에만 저장
+      if (loginApiResponse.accessToken && loginApiResponse.refreshToken) {
+        await handleSet(
+          loginApiResponse.accessToken,
+          loginApiResponse.refreshToken
+        );
         // 로그인 성공 시 홈 페이지로 이동
         navigate("/home");
       }
