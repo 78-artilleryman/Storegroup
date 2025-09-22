@@ -14,8 +14,9 @@ export interface GroupingRequest {
 export const performGrouping = async (
   selectedPlaces: Place[],
   groupCount: number,
-  balance: number
-): Promise<GroupingResponse> => {
+  balance: number,
+  accessToken: string
+) => {
   if (selectedPlaces.length < groupCount) {
     throw new Error(
       `그룹화하려면 그룹 수(${groupCount}개)보다 많은 장소를 선택해주세요.`
@@ -47,6 +48,7 @@ export const performGrouping = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(requestData),
     });
@@ -65,4 +67,23 @@ export const performGrouping = async (
     console.error("그룹화 요청 중 오류가 발생했습니다:", error);
     throw error;
   }
+};
+
+export const getGroupingResult = async (
+  accessToken: string
+): Promise<GroupingResponse> => {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const apiUrl = `${baseUrl}/cluster`;
+  const response = await fetch(apiUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+  return result;
 };

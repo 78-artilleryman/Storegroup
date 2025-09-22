@@ -7,7 +7,8 @@
     "build": "bedrock build",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "deploy": "ait deploy"
+    "deploy": "ait deploy",
+    "dev:vite": "vite"
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^0.0.39",

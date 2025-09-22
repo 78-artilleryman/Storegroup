@@ -1,7 +1,6 @@
 import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -20,6 +19,10 @@ export default defineConfig({
             .replace(
               /%VITE_KAKAO_JS_KEY%/g,
               process.env.VITE_KAKAO_JS_KEY || ""
+            )
+            .replace(
+              /%VITE_BASE_URL%/g,
+              process.env.VITE_KAKAO_REST_API_KEY || ""
             );
         },
       },
@@ -30,10 +33,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+
   server: {
     port: 5173,
-    host: "0.0.0.0",
-    open: true,
   },
   build: {
     outDir: "dist",

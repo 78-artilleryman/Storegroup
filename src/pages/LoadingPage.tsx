@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
-import { performGrouping } from "@/services/groupingApi";
+import { performGrouping, getGroupingResult } from "@/services/groupingApi";
+import { Storage } from "@apps-in-toss/web-framework";
 
 function LoadingPage() {
   const navigate = useNavigate();
@@ -22,14 +23,46 @@ function LoadingPage() {
 
     // API 호출
     const performApi = async () => {
+      let isUnmounted = false;
+      const cleanup = () => {
+        isUnmounted = true;
+      };
+      const accessToken = await Storage.getItem("accessToken");
+      if (!accessToken) {
+        throw new Error("accessToken이 없습니다.");
+      }
+
       try {
-        const result = await performGrouping(
-          selectedPlaces,
-          groupCount,
-          balance
-        );
-        setGroupingResult(result);
-        setApiCompleted(true);
+        // 1) POST 요청 전송 (서버에 작업 생성)
+        await performGrouping(selectedPlaces, groupCount, balance, accessToken);
+
+        // 2) GET 폴링으로 결과 수신
+        const maxAttempts = 20; // 최대 20회 (예: 최대 ~20초)
+        const intervalMs = 1000; // 1초 간격
+        let attempt = 0;
+
+        while (!isUnmounted && attempt < maxAttempts) {
+          try {
+            const result = await getGroupingResult(accessToken);
+            if (result && result.result) {
+              if (!isUnmounted) {
+                setGroupingResult(result);
+                setApiCompleted(true);
+              }
+              break;
+            }
+          } catch (e) {
+            // 아직 준비되지 않았거나 일시 오류일 수 있으므로 다음 시도
+          }
+          attempt += 1;
+          await new Promise((res) => setTimeout(res, intervalMs));
+        }
+
+        if (!isUnmounted && !apiCompleted) {
+          throw new Error(
+            "결과를 가져오지 못했습니다. 잠시 후 다시 시도해주세요."
+          );
+        }
       } catch (error) {
         console.error("그룹화 요청 중 오류가 발생했습니다:", error);
 
@@ -42,12 +75,15 @@ function LoadingPage() {
         // 에러 발생 시 뒤로 이동
         navigate(-1);
       }
+      return cleanup;
     };
 
     performApi();
 
     // 컴포넌트 언마운트 시 타이머 정리
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [selectedPlaces, groupCount, balance, setGroupingResult, navigate]);
 
   // API 완료 && 3초 경과 시 결과 페이지로 이동
