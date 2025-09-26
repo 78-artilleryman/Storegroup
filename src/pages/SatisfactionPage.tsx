@@ -6,25 +6,28 @@ import {
   FixedBottomCTA,
 } from "@toss-design-system/mobile";
 import { adaptive } from "@toss-design-system/colors";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSearchStore } from "@/store";
+
+const satisfactionOptions = [
+  { value: "VERY_GOOD", label: "매우 만족" },
+  { value: "GOOD", label: "만족" },
+  { value: "NORMAL", label: "보통" },
+  { value: "BAD", label: "불만족" },
+  { value: "TOO_BAD", label: "매우 불만족" },
+] as const;
 
 function SatisfactionPage() {
-  const [selectedSatisfaction, setSelectedSatisfaction] = useState<
-    string | null
-  >(null);
+  const selectedScore = useSearchStore((s) => s.satisfactionScore);
+  const setSatisfactionScore = useSearchStore((s) => s.setSatisfactionScore);
   const navigate = useNavigate();
-  const satisfactionOptions = [
-    { value: "very-satisfied", label: "매우 만족" },
-    { value: "satisfied", label: "만족" },
-    { value: "neutral", label: "보통" },
-    { value: "dissatisfied", label: "불만족" },
-    { value: "very-dissatisfied", label: "매우 불만족" },
-  ];
 
-  const handleSatisfactionSelect = (value: string) => {
-    setSelectedSatisfaction(value);
+  const handleSatisfactionSelect = (
+    value: (typeof satisfactionOptions)[number]["value"]
+  ) => {
+    setSatisfactionScore(value);
   };
+
   return (
     <div className="flex flex-col bg-white min-h-[calc(100vh-24px)]">
       <div className="h-[14px]" />
@@ -51,7 +54,7 @@ function SatisfactionPage() {
               />
             }
             right={
-              selectedSatisfaction === option.value && (
+              selectedScore === option.value && (
                 <Checkbox.Line checked={true} size={20} />
               )
             }
@@ -62,7 +65,7 @@ function SatisfactionPage() {
       </List>
       <FixedBottomCTA
         loading={false}
-        disabled={selectedSatisfaction === null}
+        disabled={selectedScore === null}
         onClick={() => navigate("/opinion")}
       >
         다음

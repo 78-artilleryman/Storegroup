@@ -75,7 +75,9 @@ export const getGroupingResult = async (
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const apiUrl = `${baseUrl}/cluster`;
   const response = await fetch(apiUrl, {
+    method: "GET",
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
   });

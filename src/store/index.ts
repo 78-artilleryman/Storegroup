@@ -23,6 +23,8 @@ export interface GroupingResponse {
   result: ClusteringResult;
 }
 
+type FeedbackScore = "VERY_GOOD" | "GOOD" | "NORMAL" | "BAD" | "TOO_BAD";
+
 interface SearchStore {
   places: Place[];
   // eslint-disable-next-line no-unused-vars
@@ -47,6 +49,14 @@ interface SearchStore {
   clearGroupingResult: () => void;
   isBottomSheetOpen: boolean;
   setIsBottomSheetOpen: (isOpen: boolean) => void;
+  // Feedback states
+  satisfactionScore: FeedbackScore | null;
+  // eslint-disable-next-line no-unused-vars
+  setSatisfactionScore: (score: FeedbackScore | null) => void;
+  opinion: string;
+  // eslint-disable-next-line no-unused-vars
+  setOpinion: (text: string) => void;
+  clearFeedback: () => void;
 }
 
 export const useSearchStore = create<SearchStore>()((set, get) => ({
@@ -93,4 +103,10 @@ export const useSearchStore = create<SearchStore>()((set, get) => ({
   clearGroupingResult: () => set({ groupingResult: null }),
   isBottomSheetOpen: false,
   setIsBottomSheetOpen: (isOpen) => set({ isBottomSheetOpen: isOpen }),
+  // feedback
+  satisfactionScore: null,
+  setSatisfactionScore: (score) => set({ satisfactionScore: score }),
+  opinion: "",
+  setOpinion: (text) => set({ opinion: text }),
+  clearFeedback: () => set({ satisfactionScore: null, opinion: "" }),
 }));
