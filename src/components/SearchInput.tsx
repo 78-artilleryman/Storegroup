@@ -65,6 +65,27 @@ function SearchInput() {
     searchPlaces();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
+      searchPlaces();
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // 일부 iOS/브라우저에서 keydown 대신 keypress로 Enter가 들어오는 경우 대응
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
+      searchPlaces();
+    }
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="w-full flex items-center gap-2">
@@ -73,9 +94,14 @@ function SearchInput() {
           placeholder="장소를 입력해 보세요"
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
+          onKeyDown={handleKeyDown}
+          onKeyPress={handleKeyPress}
+          type="search"
+          enterKeyHint="search"
           className="w-full"
           disabled={isLoading}
         />
+        <button type="submit" className="hidden" aria-hidden="true" />
       </form>
 
       {/* 로딩 스피너 오버레이 */}
