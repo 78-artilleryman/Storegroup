@@ -48,17 +48,25 @@ function Markers({
           width: 32px;
           height: 32px;
           background-color: ${color};
-          border: 3px solid white;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-weight: bold;
-          font-size: 14px;
-          color: white;
-          text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
           box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        ">${groupNumber}</div>
+        ">
+          <div style="
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            color: ${color};
+          ">${groupNumber}</div>
+        </div>
         <div style="
           position: absolute;
           bottom: 0;

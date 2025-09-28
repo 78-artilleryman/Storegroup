@@ -16,17 +16,30 @@ declare global {
 
 // 그룹별 색상 정의
 const GROUP_COLORS = [
-  "#FF6B6B", // 빨간색
-  "#4ECDC4", // 청록색
-  "#45B7D1", // 파란색
-  "#96CEB4", // 연두색
-  "#FFEAA7", // 노란색
-  "#DDA0DD", // 보라색
-  "#FFB347", // 주황색
+  "#F04452", // 빨간색
+  "#3182F6", // 청록색
+  "#FE9800", // 파란색
+  "#FFC342", // 연두색
+  "#03B26C", // 노란색
+  "#18A5A5", // 보라색
+  "#A234C7", // 주황색
   "#98D8C8", // 민트색
   "#F7DC6F", // 연한 노란색
   "#BB8FCE", // 연한 보라색
 ];
+
+// const GROUP_COLORS_2 = [
+//   "#FFB3B3", // 연한 빨간색
+//   "#7EDDD6", // 연한 청록색
+//   "#FFD699", // 연한 주황색
+//   "#FFF2B3", // 연한 노란색
+//   "#B8E6B8", // 연한 연두색
+//   "#B8E6D6", // 연한 민트색
+//   "#E6B3E6", // 연한 보라색
+//   "#D6B3E6", // 연한 라벤더
+//   "#F9E6B3", // 연한 베이지
+//   "#E6D6B3", // 연한 크림
+// ];
 
 function GroupMap() {
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
@@ -47,19 +60,30 @@ function GroupMap() {
       throw new Error("accessToken이 없습니다.");
     }
     const result = await getGroupingResult(accessToken);
+    console.log("그룹화 API 응답:", result);
     setGroupingResult(result);
   };
 
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("group-map");
+      if (!mapContainer) {
+        console.error("지도 컨테이너를 찾을 수 없습니다.");
+        return;
+      }
+
       const mapOption = {
         center: new window.kakao.maps.LatLng(37.497625203, 127.03088379),
         level: 4,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
       mapRef.current = map;
-      setIsMapLoaded(true);
+
+      // 지도가 완전히 로드된 후 상태 업데이트
+      window.kakao.maps.event.addListener(map, "tilesloaded", () => {
+        console.log("카카오맵 타일 로딩 완료");
+        setIsMapLoaded(true);
+      });
     });
   };
 
@@ -144,7 +168,9 @@ function GroupMap() {
               variant={selectedGroup === "all" ? "default" : "outline"}
               size="sm"
               onClick={showAllMarkers}
-              className="text-xs"
+              className={`text-xs border-[#4E5968] ${
+                selectedGroup === "all" ? "!bg-[#4E5968]" : ""
+              }`}
             >
               전체보기
             </Button>
@@ -158,7 +184,7 @@ function GroupMap() {
                   variant={selectedGroup === groupKey ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleGroupSelect(groupKey)}
-                  className="text-xs flex items-center gap-1"
+                  className="text-xs flex items-center"
                   style={{
                     backgroundColor:
                       selectedGroup === groupKey ? color : undefined,
@@ -166,12 +192,6 @@ function GroupMap() {
                     color: selectedGroup === groupKey ? "white" : color,
                   }}
                 >
-                  <span
-                    className="w-4 h-4 rounded-full text-white text-xs font-bold flex items-center justify-center"
-                    style={{ backgroundColor: color }}
-                  >
-                    {groupIndex + 1}
-                  </span>
                   그룹 {groupIndex + 1} (
                   {groupingResult.result[groupKey].length}개)
                 </Button>

@@ -28,3 +28,21 @@ export const estimate = async (
   }
   return await response.json();
 };
+
+export const postPhoneCall = async (accessToken: string) => {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const apiUrl = `${baseUrl}/more/apply/phoneCall`;
+
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  return await response.json();
+};

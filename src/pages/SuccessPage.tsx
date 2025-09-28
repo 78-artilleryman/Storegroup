@@ -7,6 +7,8 @@ import {
 } from "@toss-design-system/mobile";
 import { adaptive } from "@toss-design-system/colors";
 import { useState } from "react";
+import { Storage } from "@apps-in-toss/web-framework";
+import { postPhoneCall } from "@/services/estimate";
 
 function SuccessPage() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -17,6 +19,15 @@ function SuccessPage() {
 
   const handleBottomSheetClose = () => {
     setIsBottomSheetOpen(false);
+  };
+
+  const handlePhoneCall = async () => {
+    const accessToken = await Storage.getItem("accessToken");
+    if (!accessToken) {
+      throw new Error("accessToken이 없습니다.");
+    }
+    postPhoneCall(accessToken);
+    handleBottomSheetClose();
   };
 
   return (
@@ -59,7 +70,9 @@ function SuccessPage() {
                 다음에 할게요
               </Button>
             }
-            rightButton={<Button>인터뷰 할래요</Button>}
+            rightButton={
+              <Button onClick={handlePhoneCall}>인터뷰 할래요</Button>
+            }
           />
         }
       >

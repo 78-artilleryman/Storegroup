@@ -17,7 +17,7 @@ function MorePage() {
         lowerGap={0}
       />
       <div className="h-[24px]" />
-      <Link to="/satisfaction" className="flex items-start  min-h-[500px]">
+      <Link to="/satisfaction" className="flex items-start  min-h-[400px]">
         <div className="flex items-center justify-between gap-4 px-6 mt-4 w-full">
           <div className="flex items-center gap-4">
             <div className="flex items-center justify-center rounded-full bg-gray-100 w-[48px] h-[48px]">
