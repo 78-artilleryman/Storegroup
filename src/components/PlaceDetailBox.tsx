@@ -21,10 +21,18 @@ function PlaceDetailBox({
         <div className="flex justify-between items-start mb-3">
           <div className="flex gap-3 items-center">
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs"
+              className="w-8 h-8 rounded-full flex items-center justify-center"
               style={{ backgroundColor: color }}
             >
-              {groupNumber}
+              <div
+                className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
+                style={{
+                  backgroundColor: "white",
+                  color: color,
+                }}
+              >
+                {groupNumber}
+              </div>
             </div>
             <div>
               <div className="font-semibold text-sm">{place.name}</div>
