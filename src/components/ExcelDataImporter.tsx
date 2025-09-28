@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useSearchStore } from "@/store";
@@ -15,60 +15,6 @@ function ExcelDataImporter() {
   const [clipboardData, setClipboardData] = useState<ExcelDataItem[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const addSelectedPlace = useSearchStore((state) => state.addSelectedPlace);
-
-  // 클립보드 데이터 파싱 함수
-  const parseClipboardData = (text: string): ExcelDataItem[] => {
-    const lines = text.trim().split("\n");
-    const data: ExcelDataItem[] = [];
-
-    for (const line of lines) {
-      // 탭으로 구분된 데이터를 처리 (엑셀에서 복사할 때 탭으로 구분됨)
-      const parts = line.split("\t");
-      if (parts.length >= 2) {
-        const name = parts[0].trim();
-        const address = parts[1].trim();
-        if (name && address) {
-          data.push({ name, address });
-        }
-      }
-    }
-
-    return data;
-  };
-
-  // 클립보드 데이터 확인
-  const checkClipboard = async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      const parsedData = parseClipboardData(text);
-
-      if (parsedData.length > 0) {
-        setClipboardData(parsedData);
-      } else {
-        setClipboardData([]);
-      }
-    } catch (error) {
-      console.error("클립보드 읽기 실패:", error);
-      setClipboardData([]);
-    }
-  };
-
-  // 페이지 포커스 시 클립보드 확인
-  useEffect(() => {
-    const handleFocus = () => {
-      checkClipboard();
-    };
-
-    // 초기 로드 시 확인
-    checkClipboard();
-
-    // 윈도우 포커스 이벤트 리스너 추가
-    window.addEventListener("focus", handleFocus);
-
-    return () => {
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, []);
 
   // 주소에서 주요 도로명 추출 함수
   const extractRoadName = (address: string): string => {
@@ -137,7 +83,7 @@ function ExcelDataImporter() {
     }
   };
 
-  // 클립보드 데이터가 없으면 컴포넌트를 렌더링하지 않음
+  // 클립보드에 데이터가 없으면 컴포넌트를 렌더링하지 않음
   if (clipboardData.length === 0) {
     return null;
   }
@@ -148,14 +94,16 @@ function ExcelDataImporter() {
         <h3 className="text-sm font-medium text-blue-800">
           복사된 데이터 감지됨 ({clipboardData.length}개)
         </h3>
-        <Button
-          onClick={processExcelData}
-          disabled={isProcessing}
-          size="sm"
-          className="bg-blue-600 hover:bg-blue-700"
-        >
-          {isProcessing ? "처리 중..." : "일괄 추가"}
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={processExcelData}
+            disabled={isProcessing}
+            size="sm"
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            {isProcessing ? "처리 중..." : "일괄 추가"}
+          </Button>
+        </div>
       </div>
 
       {isProcessing && (
