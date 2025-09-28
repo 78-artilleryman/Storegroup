@@ -86,6 +86,8 @@ export const getGroupingResult = async (
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
+  console.log(response);
+
   const result = await response.json();
   return result;
 };
