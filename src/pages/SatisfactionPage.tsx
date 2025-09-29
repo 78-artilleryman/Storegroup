@@ -34,9 +34,9 @@ function SatisfactionPage() {
       <Top
         title={
           <Top.TitleParagraph size={22} color={adaptive.grey900}>
-            문제가 생기셨나요?
+            스토어그룹 서비스에
             <br />
-            언제든 의견을 보내주세요
+            얼마나 만족하시나요?
           </Top.TitleParagraph>
         }
         lowerGap={0}

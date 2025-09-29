@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import PlaceDetailBox from "./PlaceDetailBox";
 import Markers from "./Markers";
 import { loadKakaoMapScript } from "@/utils/kakaoLoader";
-import { Storage } from "@apps-in-toss/web-framework";
-import { getGroupingResult } from "@/services/groupingApi";
+// import { Storage } from "@apps-in-toss/web-framework";
+// import { getGroupingResult } from "@/services/groupingApi";
 
 declare global {
   interface Window {
@@ -52,17 +52,6 @@ function GroupMap() {
   const [currentPlaces, setCurrentPlaces] = useState<ClusterPlace[]>([]);
   const mapRef = useRef<any>(null);
   const groupingResult = useSearchStore((state) => state.groupingResult);
-  const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
-
-  const getGroupingResultApi = async () => {
-    const accessToken = await Storage.getItem("accessToken");
-    if (!accessToken) {
-      throw new Error("accessToken이 없습니다.");
-    }
-    const result = await getGroupingResult(accessToken);
-    console.log("그룹화 API 응답:", result);
-    setGroupingResult(result);
-  };
 
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
@@ -129,12 +118,6 @@ function GroupMap() {
 
     initializeMap();
   }, []);
-
-  useEffect(() => {
-    if (!groupingResult) {
-      getGroupingResultApi();
-    }
-  }, [groupingResult]);
 
   useEffect(() => {
     // 컴포넌트가 마운트되고 지도가 로드되면 모든 마커 표시
