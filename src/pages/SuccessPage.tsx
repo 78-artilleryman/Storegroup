@@ -4,14 +4,18 @@ import {
   FixedBottomCTA,
   BottomSheet,
   Button,
+  useToast,
 } from "@toss-design-system/mobile";
 import { adaptive } from "@toss-design-system/colors";
 import { useState } from "react";
 import { Storage } from "@apps-in-toss/web-framework";
 import { postPhoneCall } from "@/services/estimate";
+import { useNavigate } from "react-router-dom";
 
 function SuccessPage() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { openToast } = useToast();
+  const navigate = useNavigate();
 
   const handleBottomSheetOpen = () => {
     setIsBottomSheetOpen(true);
@@ -27,7 +31,13 @@ function SuccessPage() {
       throw new Error("accessToken이 없습니다.");
     }
     postPhoneCall(accessToken);
+    openToast("응해주셔서 감사해요. 곧 연락드릴게요!", {
+      type: `bottom`,
+      lottie: `https://static.toss.im/lotties-common/check-green-spot.json`,
+      higherThanCTA: false,
+    });
     handleBottomSheetClose();
+    navigate("/home");
   };
 
   return (
