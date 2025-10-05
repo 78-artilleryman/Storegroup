@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
 import { performGrouping } from "@/services/groupingApi";
 import { Storage } from "@apps-in-toss/web-framework";
+import { Asset, Top } from "@toss-design-system/mobile";
+import { adaptive } from "@toss-design-system/colors";
 
 function LoadingPage() {
   const navigate = useNavigate();
@@ -64,50 +66,26 @@ function LoadingPage() {
   }, [timeElapsed, apiCompleted, navigate]);
 
   return (
-    <main className="min-h-[calc(100vh-120px)] bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-      <div className="bg-white rounded-2xl p-8 shadow-xl max-w-sm mx-4 text-center">
-        {/* 로딩 스피너 */}
-        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-
-        {/* 제목 */}
-        <h2 className="text-xl font-bold text-gray-800 mb-3">그룹화 진행 중</h2>
-
-        {/* 설명 */}
-        <p className="text-gray-600 text-sm mb-6">
-          선택하신 {selectedPlaces.length}개의 장소를
-          <br />
-          {groupCount}개 그룹으로 분석하고 있습니다.
-        </p>
-
-        {/* 상태 표시 */}
-        <div className="space-y-2">
-          <div
-            className={`flex items-center justify-between text-sm ${
-              apiCompleted ? "text-green-600" : "text-gray-500"
-            }`}
-          >
-            <span>데이터 분석</span>
-            {apiCompleted ? (
-              <span className="font-medium">완료 ✓</span>
-            ) : (
-              <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            )}
-          </div>
-
-          <div
-            className={`flex items-center justify-between text-sm ${
-              timeElapsed ? "text-green-600" : "text-gray-500"
-            }`}
-          >
-            <span>결과 준비</span>
-            {timeElapsed ? (
-              <span className="font-medium">완료 ✓</span>
-            ) : (
-              <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            )}
-          </div>
-        </div>
-      </div>
+    <main className="min-h-[calc(100vh)] bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center">
+      <Top
+        title={
+          <Top.TitleParagraph size={22} color={adaptive.grey900}>
+            {groupCount}개의 그룹으로 분석하고 있어요
+          </Top.TitleParagraph>
+        }
+        lower={
+          <Top.SubtitleParagraph color={adaptive.grey500}>
+            <span className="pl-6">잠시만 기다려주세요.</span>
+          </Top.SubtitleParagraph>
+        }
+      />
+      <Asset.Lottie
+        frameShape={{ width: 375 }}
+        src="https://static.toss.im/lotties/loading/load-ripple.json"
+        loop={true}
+        speed={1}
+        aria-hidden={true}
+      />
     </main>
   );
 }
