@@ -37,7 +37,11 @@ function SuccessPage() {
       higherThanCTA: false,
     });
     handleBottomSheetClose();
-    navigate("/home");
+
+    // 토스트가 보인 후 홈으로 이동
+    setTimeout(() => {
+      navigate("/home");
+    }, 1000); // 2초 후 홈으로 이동 (토스트 표시 시간 고려)
   };
 
   return (
