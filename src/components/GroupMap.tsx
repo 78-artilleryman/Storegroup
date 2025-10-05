@@ -23,23 +23,23 @@ const GROUP_COLORS = [
   "#03B26C", // 노란색
   "#18A5A5", // 보라색
   "#A234C7", // 주황색
-  "#98D8C8", // 민트색
-  "#F7DC6F", // 연한 노란색
-  "#BB8FCE", // 연한 보라색
+  "#5ac5aa", // 민트색
+  "#d6b738", // 연한 노란색
+  "#9370a2", // 연한 보라색
 ];
 
-// const GROUP_COLORS_2 = [
-//   "#FFB3B3", // 연한 빨간색
-//   "#7EDDD6", // 연한 청록색
-//   "#FFD699", // 연한 주황색
-//   "#FFF2B3", // 연한 노란색
-//   "#B8E6B8", // 연한 연두색
-//   "#B8E6D6", // 연한 민트색
-//   "#E6B3E6", // 연한 보라색
-//   "#D6B3E6", // 연한 라벤더
-//   "#F9E6B3", // 연한 베이지
-//   "#E6D6B3", // 연한 크림
-// ];
+const GROUP_COLORS_2 = [
+  "#fbe4e4", // 빨간색
+  "#cadefa", // 청록색
+  "#fcedd6", // 파란색
+  "#fff6e3", // 연두색
+  "#e0f9ef", // 노란색
+  "#d1fefe", // 보라색
+  "#f4dffb", // 주황색
+  "#dcfaf2", // 민트색
+  "#fff3c4", // 연한 노란색
+  "#f2e0f9", // 연한 보라색
+];
 
 function GroupMap() {
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
@@ -151,7 +151,7 @@ function GroupMap() {
               variant={selectedGroup === "all" ? "default" : "outline"}
               size="sm"
               onClick={showAllMarkers}
-              className={`text-xs border-[#4E5968] ${
+              className={`text-xs border-[#4E5968] button-click-animation ${
                 selectedGroup === "all" ? "!bg-[#4E5968]" : ""
               }`}
             >
@@ -161,18 +161,19 @@ function GroupMap() {
               const groupIndex =
                 parseInt(groupKey.replace("clustering", "")) - 1;
               const color = GROUP_COLORS[groupIndex % GROUP_COLORS.length];
+              const color2 = GROUP_COLORS_2[groupIndex % GROUP_COLORS_2.length];
               return (
                 <Button
                   key={groupKey}
                   variant={selectedGroup === groupKey ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleGroupSelect(groupKey)}
-                  className="text-xs flex items-center"
+                  className="text-xs flex items-center button-click-animation font-extrabold"
                   style={{
                     backgroundColor:
-                      selectedGroup === groupKey ? color : undefined,
+                      selectedGroup === groupKey ? color2 : undefined,
                     borderColor: color,
-                    color: selectedGroup === groupKey ? "white" : color,
+                    color: color,
                   }}
                 >
                   그룹 {groupIndex + 1} (
@@ -200,7 +201,7 @@ function GroupMap() {
       )}
 
       {/* 선택된 그룹의 장소 목록 */}
-      {selectedGroup && selectedGroup !== "all" && (
+      {/* {selectedGroup && selectedGroup !== "all" && (
         <div className="bg-white border-t border-gray-200 p-4 max-h-40 overflow-y-auto">
           <div className="max-w-[420px] mx-auto">
             <h3 className="font-semibold text-sm mb-2 flex items-center gap-2">
@@ -228,13 +229,14 @@ function GroupMap() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* 장소 상세 정보 박스 */}
       <PlaceDetailBox
         place={selectedPlace}
         groupNumber={selectedPlaceGroup.number}
         color={selectedPlaceGroup.color}
+        isOpen={selectedPlace !== null}
         onClose={() => setSelectedPlace(null)}
       />
     </>

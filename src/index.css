@@ -170,3 +170,23 @@
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* 토스 디자인 시스템 Button 스타일 오버라이드 */
+.custom-button-unselected {
+  background-color: white !important;
+  border-color: #d1d5db !important;
+  color: #6b7280 !important;
+}
+
+.custom-button-unselected:hover {
+  background-color: #f9fafb !important;
+}
+
+/* 버튼 클릭 애니메이션 */
+.button-click-animation {
+  transition: transform 0.1s ease-in-out;
+}
+
+.button-click-animation:active {
+  transform: scale(0.95);
+}

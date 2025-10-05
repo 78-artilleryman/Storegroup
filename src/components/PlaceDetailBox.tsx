@@ -1,9 +1,11 @@
 import { ClusterPlace } from "@/store";
+import { BottomSheet } from "@toss-design-system/mobile";
 
 interface PlaceDetailBoxProps {
   place: ClusterPlace | null;
   groupNumber: number;
   color: string;
+  isOpen: boolean;
   onClose: () => void;
 }
 
@@ -11,12 +13,13 @@ function PlaceDetailBox({
   place,
   groupNumber,
   color,
+  isOpen,
   onClose,
 }: PlaceDetailBoxProps) {
   if (!place) return null;
 
   return (
-    <div className="fixed inset-x-0 mx-auto bottom-4 rounded-lg max-w-[380px] z-50 w-[calc(100%-2rem)] bg-white shadow-2xl border">
+    <BottomSheet open={isOpen} onClose={onClose}>
       <div className="p-4">
         <div className="flex justify-between items-start mb-3">
           <div className="flex gap-3 items-center">
@@ -55,7 +58,7 @@ function PlaceDetailBox({
           </span>
         </div>
       </div>
-    </div>
+    </BottomSheet>
   );
 }
 
