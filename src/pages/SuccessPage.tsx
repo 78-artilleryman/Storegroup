@@ -23,6 +23,7 @@ function SuccessPage() {
 
   const handleBottomSheetClose = () => {
     setIsBottomSheetOpen(false);
+    navigate("/home");
   };
 
   const handlePhoneCall = async () => {
