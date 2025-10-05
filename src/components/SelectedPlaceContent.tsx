@@ -1,6 +1,13 @@
 import { useSearchStore } from "@/store";
-import { Button } from "@toss-design-system/mobile";
+import {
+  Asset,
+  Button,
+  Paragraph,
+  Post,
+  Text,
+} from "@toss-design-system/mobile";
 import { Switch } from "./ui/switch";
+import { adaptive } from "@toss-design-system/colors";
 
 function SelectedPlaceContent() {
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
@@ -30,11 +37,29 @@ function SelectedPlaceContent() {
       className="p-4 h-full flex flex-col"
       style={{ minHeight: "calc(100vh - 200px)" }}
     >
+      <div className="mb-4 -ml-5 -mt-3">
+        <Post.H3 paddingBottom={8} color={adaptive.grey900}>
+          <Paragraph.Text>
+            선택된 장소({selectedPlaces.length}개)
+          </Paragraph.Text>
+        </Post.H3>
+      </div>
       {selectedPlaces.length < groupCount && (
-        <div className="mb-4 p-2 bg-orange-50 border border-orange-200 rounded-lg">
-          <p className="text-sm text-orange-700">
-            그룹화하려면 그룹 수({groupCount}개)보다 많은 장소를 선택해주세요.
-          </p>
+        <div className="mb-4 px-5 py-3 bg-gray-100 rounded-lg flex items-center gap-2 ">
+          <Asset.Icon
+            frameShape={{ width: 18 }}
+            name="icon-info-circle-mono"
+            color={adaptive.grey400}
+            aria-hidden={true}
+          />
+          <Text
+            display="block"
+            color={adaptive.grey700}
+            typography="t6"
+            fontWeight="medium"
+          >
+            그룹수보다 많은 장소를 선택해 주세요.
+          </Text>
         </div>
       )}
 

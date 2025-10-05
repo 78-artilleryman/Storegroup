@@ -1,3 +1,4 @@
+import { SegmentedControl } from "@toss-design-system/mobile";
 import { useRef, useEffect } from "react";
 
 type TabType = "search" | "list";
@@ -41,11 +42,8 @@ function StoreListTabs({
   }, [activeTab]);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative flex bg-gray-100 rounded-lg p-1 mx-4 my-2"
-    >
-      {/* 슬라이딩 인디케이터 */}
+    <>
+      {/* 슬라이딩 인디케이터
       <div
         ref={indicatorRef}
         className="absolute top-1 bottom-1 bg-white rounded-md shadow-sm transition-all duration-300 ease-out"
@@ -63,7 +61,7 @@ function StoreListTabs({
             : "text-gray-600 hover:text-gray-800"
         }`}
       >
-        검색결과 ({searchCount})
+        검색결과
       </button>
       <button
         onClick={() => onTabChange("list")}
@@ -73,9 +71,29 @@ function StoreListTabs({
             : "text-gray-600 hover:text-gray-800"
         }`}
       >
-        선택된 장소 ({selectedCount})
-      </button>
-    </div>
+        선택된 장소
+      </button> */}
+      <SegmentedControl
+        alignment="fixed"
+        value={activeTab === "search" ? "0-검색 결과" : "1-선택된 장소"}
+        onChange={(value) => {
+          // value 예: "0-검색 결과" | "1-선택된 장소"
+          if (typeof value === "string") {
+            onTabChange(value.startsWith("0-") ? "search" : "list");
+          }
+        }}
+        disabled={false}
+        size="large"
+        name="SegmentedControl"
+      >
+        <SegmentedControl.Item value="0-검색 결과">
+          {`검색 결과`}
+        </SegmentedControl.Item>
+        <SegmentedControl.Item value="1-선택된 장소">
+          {`선택된 장소`}
+        </SegmentedControl.Item>
+      </SegmentedControl>
+    </>
   );
 }
 
