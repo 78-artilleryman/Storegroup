@@ -10,12 +10,7 @@ interface StoreListTabsProps {
   selectedCount: number;
 }
 
-function StoreListTabs({
-  activeTab,
-  onTabChange,
-  searchCount,
-  selectedCount,
-}: StoreListTabsProps) {
+function StoreListTabs({ activeTab, onTabChange }: StoreListTabsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
 
@@ -43,36 +38,6 @@ function StoreListTabs({
 
   return (
     <>
-      {/* 슬라이딩 인디케이터
-      <div
-        ref={indicatorRef}
-        className="absolute top-1 bottom-1 bg-white rounded-md shadow-sm transition-all duration-300 ease-out"
-        style={{
-          left: "4px",
-          width: "calc(50% - 2px)",
-        }}
-      />
-
-      <button
-        onClick={() => onTabChange("search")}
-        className={`relative z-10 flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors duration-200 ${
-          activeTab === "search"
-            ? "text-blue-600"
-            : "text-gray-600 hover:text-gray-800"
-        }`}
-      >
-        검색결과
-      </button>
-      <button
-        onClick={() => onTabChange("list")}
-        className={`relative z-10 flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors duration-200 ${
-          activeTab === "list"
-            ? "text-blue-600"
-            : "text-gray-600 hover:text-gray-800"
-        }`}
-      >
-        선택된 장소
-      </button> */}
       <SegmentedControl
         alignment="fixed"
         value={activeTab === "search" ? "0-검색 결과" : "1-선택된 장소"}

@@ -3,7 +3,6 @@ import { TDSMobileBedrockProvider } from "@toss-design-system/mobile-bedrock";
 import Header from "@/components/Header";
 import IntroPage from "@/pages/LandingPage";
 import GroupPage from "@/pages/GroupPage";
-import ListPage from "@/pages/ListPage";
 import LoadingPage from "@/pages/LoadingPage";
 import Home from "@/pages/Home";
 import MorePage from "@/pages/MorePage";
@@ -43,15 +42,6 @@ function App() {
               <div className="max-w-[420px] mx-auto">
                 <Header />
                 <GroupPage />
-              </div>
-            }
-          />
-          <Route
-            path="/list"
-            element={
-              <div className="max-w-[420px] mx-auto">
-                <Header />
-                <ListPage />
               </div>
             }
           />
