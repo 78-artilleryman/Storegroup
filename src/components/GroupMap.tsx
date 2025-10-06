@@ -26,13 +26,13 @@ const GROUP_COLORS = [
 ];
 
 const GROUP_COLORS_2 = [
-  "#fbe4e4", // 빨간색
-  "#cadefa", // 청록색
-  "#fcedd6", // 파란색
-  "#fff6e3", // 연두색
-  "#e0f9ef", // 노란색
-  "#d1fefe", // 보라색
-  "#f4dffb", // 주황색
+  "#FFEDEF", // 빨간색
+  "#ECF3FF", // 청록색
+  "#FFECD0", // 파란색
+  "#FFF5E0", // 연두색
+  "#E5FFF4", // 노란색
+  "#DBFFFF", // 보라색
+  "#FBF0FF", // 주황색
 ];
 
 function GroupMap() {

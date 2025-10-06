@@ -76,7 +76,7 @@ function SelectedPlaceContent() {
       {/* 그룹 설정 및 밸런스 */}
       <div className="mb-4 space-y-3 flex-shrink-0">
         {/* 그룹 수 설정 */}
-        <div className="bg-white rounded-xl p-4">
+        <div className="bg-white rounded-xl px-[6px]">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
               <span
@@ -85,7 +85,7 @@ function SelectedPlaceContent() {
               >
                 그룹 수
               </span>
-              <div className="w-8 h-6 bg-blue-100 rounded-[4px] flex items-center justify-center">
+              <div className="w-8 h-5 bg-blue-100 rounded-[4px] flex items-center justify-center">
                 <span className="text-xs font-bold text-blue-600">
                   {groupCount}개
                 </span>
@@ -114,7 +114,7 @@ function SelectedPlaceContent() {
         </div>
 
         {/* 밸런스 설정 */}
-        <div className="bg-white rounded-xl p-4">
+        <div className="bg-white rounded-xl px-[6px] py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <span
@@ -143,7 +143,7 @@ function SelectedPlaceContent() {
           {selectedPlaces.map((place, index) => (
             <li
               key={`${place.place_name}-${index}`}
-              className="flex justify-between items-end gap-3 p-3 bg-white rounded-lg transition-colors"
+              className="flex justify-between items-end gap-3 px-[6px] py-3 bg-white rounded-lg transition-colors"
             >
               <div className="flex flex-col">
                 <span className="text-[10px] px-1.5 py-0.5 bg-gray-200 text-gray-800 rounded-[4px] w-fit">
