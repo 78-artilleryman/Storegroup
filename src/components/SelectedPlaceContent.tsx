@@ -23,10 +23,20 @@ function SelectedPlaceContent() {
 
   if (selectedPlaces.length === 0) {
     return (
-      <div className="px-4 py-8 text-center">
-        <p className="text-gray-500 text-sm">선택된 장소가 없습니다.</p>
-        <p className="text-xs text-gray-400 mt-1">
-          검색결과에서 장소를 선택해보세요.
+      <div className="flex flex-col items-center justify-center py-8 gap-3">
+        <Asset.Icon
+          frameShape={Asset.frameShape.CleanW40}
+          backgroundColor="transparent"
+          name="icon-warning-circle-line-mono"
+          color={adaptive.grey300}
+          aria-hidden={true}
+          ratio="1/1"
+        />
+        <p
+          className="text-[20px] font-bold"
+          style={{ color: adaptive.grey300 }}
+        >
+          선택된 장소가 없습니다.
         </p>
       </div>
     );
@@ -137,17 +147,17 @@ function SelectedPlaceContent() {
           {selectedPlaces.map((place, index) => (
             <li
               key={`${place.place_name}-${index}`}
-              className="flex justify-between items-end gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-gray-200 transition-colors"
+              className="flex justify-between items-end gap-3 p-3 bg-white rounded-lg transition-colors"
             >
-              <div className="flex flex-col gap-2">
-                <span className="text-[10px] px-1.5 py-0.5 bg-gray-200 text-gray-800 rounded-full w-fit">
+              <div className="flex flex-col">
+                <span className="text-[10px] px-1.5 py-0.5 bg-gray-200 text-gray-800 rounded-[4px] w-fit">
                   {place.address_name.split(" ")[0]}{" "}
                   {place.address_name.split(" ")[1]}
                 </span>
-                <h3 className="font-medium text-sm truncate">
+                <h3 className="font-medium text-sm truncate mt-2">
                   {place.place_name}
                 </h3>
-                <p className="text-xs text-gray-600 mt-1 truncate">
+                <p className="text-xs text-gray-600 truncate mt-1">
                   {place.road_address_name || place.address_name}
                 </p>
               </div>

@@ -6,6 +6,8 @@ import SelectedPlaceContent from "./SelectedPlaceContent";
 import StoreListTabs from "./StoreListTabs";
 import { BottomSheet, Button } from "@toss-design-system/mobile";
 import { useNavigate } from "react-router-dom";
+import { Post, Paragraph } from "@toss-design-system/mobile";
+import { adaptive } from "@toss-design-system/colors";
 
 type TabType = "search" | "list";
 
@@ -116,11 +118,17 @@ function StoreListBottomSheet() {
       >
         {/* 컨텐츠 */}
         {activeTab === "search" ? (
-          <StoreListContent
-            places={places}
-            isPlaceSelected={isPlaceSelected}
-            onPlaceToggle={handlePlaceToggle}
-          />
+          <>
+            <Post.H3 color={adaptive.grey900}>
+              <Paragraph.Text>검색 결과 ({places.length}개)</Paragraph.Text>
+            </Post.H3>
+
+            <StoreListContent
+              places={places}
+              isPlaceSelected={isPlaceSelected}
+              onPlaceToggle={handlePlaceToggle}
+            />
+          </>
         ) : (
           <SelectedPlaceContent />
         )}

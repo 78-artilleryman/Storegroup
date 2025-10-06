@@ -1,5 +1,7 @@
 import { Place } from "@/store";
 import StoreListItem from "./StoreListItem";
+import { Asset } from "@toss-design-system/mobile";
+import { adaptive } from "@toss-design-system/colors";
 
 interface StoreListContentProps {
   places: Place[];
@@ -18,10 +20,20 @@ function StoreListContent({
       style={{ minHeight: "calc(100vh - 200px)" }}
     >
       {places.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-8">
-          <p className="text-gray-500 text-sm">검색 결과가 없습니다.</p>
-          <p className="text-xs text-gray-400 mt-1">
-            다른 검색어를 입력해보세요.
+        <div className="flex flex-col items-center justify-center py-8 gap-3">
+          <Asset.Icon
+            frameShape={Asset.frameShape.CleanW40}
+            backgroundColor="transparent"
+            name="icon-warning-circle-line-mono"
+            color={adaptive.grey300}
+            aria-hidden={true}
+            ratio="1/1"
+          />
+          <p
+            className="text-[20px] font-bold"
+            style={{ color: adaptive.grey300 }}
+          >
+            검색 내역이 없습니다.
           </p>
         </div>
       ) : (

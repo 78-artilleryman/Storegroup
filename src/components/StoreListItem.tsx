@@ -12,14 +12,16 @@ interface StoreListItemProps {
 const StoreListItem = memo(
   ({ place, selected, onToggle }: StoreListItemProps) => {
     return (
-      <li className="flex justify-between items-end gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
-        <div className="flex flex-col gap-2">
-          <span className="text-[10px] px-1.5 py-0.5 bg-gray-200 text-gray-800 rounded-full w-fit">
+      <li className="flex justify-between items-end gap-3 p-3 bg-white rounded-lg hover:border-gray-200 transition-colors">
+        <div className="flex flex-col">
+          <span className="text-[10px] px-1.5 py-0.5 bg-gray-200 text-gray-800 rounded-[4px] w-fit">
             {place.address_name.split(" ")[0]}{" "}
             {place.address_name.split(" ")[1]}
           </span>
-          <h3 className="font-medium text-sm truncate">{place.place_name}</h3>
-          <p className="text-xs text-gray-600 mt-1 truncate">
+          <h3 className="font-medium text-sm truncate mt-2">
+            {place.place_name}
+          </h3>
+          <p className="text-xs text-gray-600 truncate mt-1">
             {place.road_address_name || place.address_name}
           </p>
         </div>

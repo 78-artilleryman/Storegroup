@@ -94,7 +94,7 @@ function SuccessPage() {
         <ul className="text-gray-600 px-12 flex flex-col gap-2 list-disc list-outside ">
           <li>
             인터뷰이로 선정된 분들에게는 스타벅스
-            <br /> 1만원권 상품권을 드려요
+            <br /> 1만원권 상품권을 드려요.
           </li>
           <li>추후 문자로 인터뷰 진행 안내해드려요.</li>
         </ul>
