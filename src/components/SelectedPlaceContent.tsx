@@ -5,8 +5,8 @@ import {
   Paragraph,
   Post,
   Text,
+  Switch,
 } from "@toss-design-system/mobile";
-import { Switch } from "./ui/switch";
 import { adaptive } from "@toss-design-system/colors";
 
 function SelectedPlaceContent() {
@@ -33,7 +33,7 @@ function SelectedPlaceContent() {
           ratio="1/1"
         />
         <p
-          className="text-[20px] font-bold"
+          className="text-[20px] font-semibold"
           style={{ color: adaptive.grey300 }}
         >
           선택된 장소가 없습니다.
@@ -44,7 +44,7 @@ function SelectedPlaceContent() {
 
   return (
     <div
-      className="p-4 h-full flex flex-col"
+      className="p-6 h-full flex flex-col"
       style={{ minHeight: "calc(100vh - 200px)" }}
     >
       <div className="mb-4 -ml-5 -mt-3">
@@ -76,15 +76,18 @@ function SelectedPlaceContent() {
       {/* 그룹 설정 및 밸런스 */}
       <div className="mb-4 space-y-3 flex-shrink-0">
         {/* 그룹 수 설정 */}
-        <div className="bg-white rounded-xl p-4 shadow-sm">
+        <div className="bg-white rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
-              <span className="text-sm font-semibold text-gray-800">
+              <span
+                className="text-[16px] font-semibold"
+                style={{ color: adaptive.grey700 }}
+              >
                 그룹 수
               </span>
-              <div className="w-8 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+              <div className="w-8 h-6 bg-blue-100 rounded-[4px] flex items-center justify-center">
                 <span className="text-xs font-bold text-blue-600">
-                  {groupCount}
+                  {groupCount}개
                 </span>
               </div>
             </div>
@@ -93,47 +96,40 @@ function SelectedPlaceContent() {
             <input
               type="range"
               min="2"
-              max="10"
+              max="7"
               value={groupCount}
               onChange={(e) => setGroupCount(Number(e.target.value))}
               className="w-full h-2 bg-gray-100 rounded-full appearance-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 slider"
               style={{
                 background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${
-                  ((groupCount - 2) / 8) * 100
-                }%, #E5E7EB ${((groupCount - 2) / 8) * 100}%, #E5E7EB 100%)`,
+                  ((groupCount - 2) / 5) * 100
+                }%, #E5E7EB ${((groupCount - 2) / 5) * 100}%, #E5E7EB 100%)`,
               }}
             />
             <div className="flex justify-between text-xs text-gray-400 mt-2">
               <span className="font-medium">2</span>
-              <span className="font-medium">10</span>
+              <span className="font-medium">7</span>
             </div>
           </div>
         </div>
 
         {/* 밸런스 설정 */}
-        <div className="bg-white rounded-xl p-4 shadow-sm">
+        <div className="bg-white rounded-xl p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <span className="text-sm font-semibold text-gray-800">
+              <span
+                className="text-[16px] font-semibold"
+                style={{ color: adaptive.grey700 }}
+              >
                 그룹 밸런스
               </span>
-              <div
-                className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  balance === 1
-                    ? "bg-blue-100 text-blue-600"
-                    : "bg-gray-100 text-gray-500"
-                }`}
-              >
-                {balance === 0 ? "OFF" : "ON"}
-              </div>
             </div>
             <Switch
               checked={balance === 1}
-              onCheckedChange={(checked) => setBalance(checked ? 1 : 0)}
-              className="data-[state=checked]:bg-blue-500"
+              onChange={(_event, checked) => setBalance(checked ? 1 : 0)}
             />
           </div>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-500">
             {balance === 0
               ? "그룹 간 장소 수 균형을 고려하지 않습니다"
               : "그룹 간 장소 수 균형을 맞춥니다"}
@@ -154,10 +150,10 @@ function SelectedPlaceContent() {
                   {place.address_name.split(" ")[0]}{" "}
                   {place.address_name.split(" ")[1]}
                 </span>
-                <h3 className="font-medium text-sm truncate mt-2">
+                <h3 className="font-medium text-[16px] truncate mt-2">
                   {place.place_name}
                 </h3>
-                <p className="text-xs text-gray-600 truncate mt-1">
+                <p className="text-[14px] text-gray-600 truncate mt-1">
                   {place.road_address_name || place.address_name}
                 </p>
               </div>

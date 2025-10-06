@@ -1,7 +1,6 @@
 import {
   Asset,
   Top,
-  ListHeader,
   StepperRow,
   Stepper,
   FixedBottomCTA,
@@ -46,34 +45,26 @@ export default function Page() {
   }
 
   return (
-    <>
+    <div className="flex flex-col bg-white min-h-[calc(100vh)]">
       <Top
         title={
-          <Top.TitleParagraph size={22} color={adaptive.grey900}>
+          <Top.TitleParagraph size={28} color={adaptive.grey900}>
             매장 방문, 한 눈에 정리하고 빠르게 출발해요
           </Top.TitleParagraph>
         }
-      />
-      <div className="flex justify-center">
-        <Asset.Image
-          frameShape={{ width: 220 }}
-          src="https://static.toss.im/3d/tossmobile-kv-mobile-pay-hero.png"
-          aria-hidden={true}
-        />
-      </div>
-      <div className="my-3" />
-      <ListHeader
-        title={
-          <ListHeader.TitleParagraph
-            color={adaptive.grey800}
-            fontWeight="bold"
-            typography="t5"
-          >
-            빠르게 방문할 매장 동선짜고 관리하기
-          </ListHeader.TitleParagraph>
+        upper={
+          <Top.UpperAssetContent
+            content={
+              <Asset.Icon
+                frameShape={Asset.frameShape.CleanW60}
+                name="icon-map"
+                aria-hidden={true}
+              />
+            }
+          />
         }
-        descriptionPosition="bottom"
       />
+      <div className="h-[174px]" />
       <Stepper>
         <StepperRow
           left={
@@ -84,18 +75,29 @@ export default function Page() {
               }
             />
           }
-          center={<StepperRow.Texts type="A" title="가야할 매장을 등록하고" />}
+          center={
+            <StepperRow.Texts
+              type="A"
+              title="가야할 매장을 등록하고"
+              description=""
+            />
+          }
         />
         <StepperRow
           left={
             <StepperRow.AssetFrame
               shape={Asset.frameShape.CleanW32}
               content={
-                <Asset.ContentIcon name="icon-folder-blue" aria-hidden={true} />
+                <Asset.ContentImage
+                  src="https://static.toss.im/2d-emojis/png/4x/u1F5C2.png"
+                  aria-hidden={true}
+                />
               }
             />
           }
-          center={<StepperRow.Texts type="A" title="그룹화하면 끝! " />}
+          center={
+            <StepperRow.Texts type="A" title="그룹화하면 끝!" description="" />
+          }
         />
         <StepperRow
           left={
@@ -113,14 +115,15 @@ export default function Page() {
             <StepperRow.Texts
               type="A"
               title="오늘의 방문 매장을 확인하고 출발해요"
+              description=""
             />
           }
           hideLine={true}
         />
       </Stepper>
       <FixedBottomCTA loading={false} onClick={handleLogin}>
-        시작하기
+        로그인하기
       </FixedBottomCTA>
-    </>
+    </div>
   );
 }

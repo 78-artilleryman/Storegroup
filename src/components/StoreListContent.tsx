@@ -30,7 +30,7 @@ function StoreListContent({
             ratio="1/1"
           />
           <p
-            className="text-[20px] font-bold"
+            className="text-[20px] font-semibold"
             style={{ color: adaptive.grey300 }}
           >
             검색 내역이 없습니다.
