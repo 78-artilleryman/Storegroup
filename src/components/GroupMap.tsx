@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import PlaceDetailBox from "./PlaceDetailBox";
 import Markers from "./Markers";
 import { loadKakaoMapScript } from "@/utils/kakaoLoader";
-// import { Storage } from "@apps-in-toss/web-framework";
-// import { getGroupingResult } from "@/services/groupingApi";
+import { Asset, Result } from "@toss-design-system/mobile";
+import { useNavigate } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -52,6 +52,7 @@ function GroupMap() {
   const [currentPlaces, setCurrentPlaces] = useState<ClusterPlace[]>([]);
   const mapRef = useRef<any>(null);
   const groupingResult = useSearchStore((state) => state.groupingResult);
+  const navigate = useNavigate();
 
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
@@ -129,11 +130,27 @@ function GroupMap() {
 
   if (!groupingResult) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center px-4">
-        <p className="text-gray-500">그룹화된 장소가 없습니다.</p>
-        <p className="text-sm text-gray-400 mt-2">
-          장소 검색 후 그룹화 해주세요.
-        </p>
+      <div className="w-full min-h-[calc(100vh-120px)] flex items-center justify-center">
+        <div className="max-w-[420px] w-full px-4">
+          <Result
+            title="그룹화 할 장소가 없어요"
+            description="장소 검색을 먼저 진행해 주세요."
+            figure={
+              <>
+                <Asset.Lottie
+                  frameShape={Asset.frameShape.CleanW60}
+                  src="https://static.toss.im/lotties-common/empty-spot.json"
+                  aria-hidden={true}
+                />
+              </>
+            }
+            button={
+              <Result.Button onClick={() => navigate("/home")}>
+                장소 검색하기
+              </Result.Button>
+            }
+          />
+        </div>
       </div>
     );
   }

@@ -32,7 +32,7 @@ function MorePage() {
             <p className="text-gray-600 text-xl font-bold">의견 보내기</p>
           </div>
           <Asset.Icon
-            frameShape={Asset.frameShape.CleanW24}
+            frameShape={Asset.frameShape.CleanW16}
             backgroundColor="transparent"
             name="icon-arrow-right-textbutton-mono"
             color={adaptive.grey600}
