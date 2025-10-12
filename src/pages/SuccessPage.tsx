@@ -8,7 +8,7 @@ import {
 } from "@toss-design-system/mobile";
 import { adaptive } from "@toss-design-system/colors";
 import { useState } from "react";
-import { Storage } from "@apps-in-toss/web-framework";
+import { withTokenRefresh } from "@/utils/tokenManager";
 import { postPhoneCall } from "@/services/estimate";
 import { useNavigate } from "react-router-dom";
 
@@ -27,22 +27,31 @@ function SuccessPage() {
   };
 
   const handlePhoneCall = async () => {
-    const accessToken = await Storage.getItem("accessToken");
-    if (!accessToken) {
-      throw new Error("accessToken이 없습니다.");
-    }
-    postPhoneCall(accessToken);
-    openToast("응해주셔서 감사해요. 곧 연락드릴게요!", {
-      type: `bottom`,
-      lottie: `https://static.toss.im/lotties-common/check-green-spot.json`,
-      higherThanCTA: false,
-    });
-    handleBottomSheetClose();
+    try {
+      // 토큰 재발급 로직이 포함된 API 호출
+      await withTokenRefresh(
+        (token) => postPhoneCall(token),
+        () => {
+          // 토큰 재발급 실패 시 로그인 페이지로 이동
+          console.log("토큰 재발급 실패. 로그인 페이지로 이동합니다.");
+          navigate("/");
+        }
+      );
 
-    // 토스트가 보인 후 홈으로 이동
-    setTimeout(() => {
-      navigate("/home");
-    }, 1000); // 2초 후 홈으로 이동 (토스트 표시 시간 고려)
+      openToast("응해주셔서 감사해요. 곧 연락드릴게요!", {
+        type: `bottom`,
+        lottie: `https://static.toss.im/lotties-common/check-green-spot.json`,
+        higherThanCTA: false,
+      });
+      handleBottomSheetClose();
+
+      // 토스트가 보인 후 홈으로 이동
+      setTimeout(() => {
+        navigate("/home");
+      }, 1000); // 2초 후 홈으로 이동 (토스트 표시 시간 고려)
+    } catch (error) {
+      console.error("전화 인터뷰 신청 중 오류 발생:", error);
+    }
   };
 
   return (

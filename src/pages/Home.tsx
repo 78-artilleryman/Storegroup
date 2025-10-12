@@ -4,9 +4,11 @@ import ExcelDataImporter from "@/components/ExcelDataImporter";
 import { useEffect } from "react";
 import { useSearchStore } from "@/store";
 import { getGroupingResult } from "@/services/groupingApi";
-import { Storage } from "@apps-in-toss/web-framework";
+import { withTokenRefresh } from "@/utils/tokenManager";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   const groupingResult = useSearchStore((state) => state.groupingResult);
   const setGroupingResult = useSearchStore((state) => state.setGroupingResult);
   const addSelectedPlace = useSearchStore((state) => state.addSelectedPlace);
@@ -17,26 +19,35 @@ export default function Home() {
   useEffect(() => {
     const fetchGrouping = async () => {
       try {
-        const accessToken = await Storage.getItem("accessToken");
-        if (!accessToken) return;
-        const result = await getGroupingResult(accessToken);
-        setGroupingResult(result);
+        // 토큰 재발급 로직이 포함된 API 호출
+        const result = await withTokenRefresh(
+          (token) => getGroupingResult(token),
+          () => {
+            // 토큰 재발급 실패 시 로그인 페이지로 이동
+            console.log("토큰 재발급 실패. 로그인 페이지로 이동합니다.");
+            navigate("/");
+          }
+        );
 
-        // 그룹화 결과를 전역 selectedPlaces로 변환/적용
-        if (result && result.result) {
-          const allClusterPlaces = Object.values(result.result).flat();
+        if (result) {
+          setGroupingResult(result);
 
-          // 초기화 후 중복 없이 추가 (스토어의 addSelectedPlace가 중복 방지 로직 보유)
-          clearSelectedPlaces();
-          allClusterPlaces.forEach((p) => {
-            addSelectedPlace({
-              place_name: p.name,
-              address_name: p.address,
-              road_address_name: p.address,
-              x: String(p.longitude),
-              y: String(p.latitude),
+          // 그룹화 결과를 전역 selectedPlaces로 변환/적용
+          if (result.result) {
+            const allClusterPlaces = Object.values(result.result).flat();
+
+            // 초기화 후 중복 없이 추가 (스토어의 addSelectedPlace가 중복 방지 로직 보유)
+            clearSelectedPlaces();
+            allClusterPlaces.forEach((p) => {
+              addSelectedPlace({
+                place_name: p.name,
+                address_name: p.address,
+                road_address_name: p.address,
+                x: String(p.longitude),
+                y: String(p.latitude),
+              });
             });
-          });
+          }
         }
       } catch (e) {
         console.error(e);
@@ -46,7 +57,7 @@ export default function Home() {
     if (!groupingResult) {
       fetchGrouping();
     }
-  }, [groupingResult, setGroupingResult]);
+  }, [groupingResult, setGroupingResult, navigate]);
 
   return (
     <>

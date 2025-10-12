@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
 import { performGrouping } from "@/services/groupingApi";
-import { Storage } from "@apps-in-toss/web-framework";
+import { withTokenRefresh } from "@/utils/tokenManager";
 import { Asset, Top } from "@toss-design-system/mobile";
 import { adaptive } from "@toss-design-system/colors";
 
@@ -25,19 +25,22 @@ function LoadingPage() {
 
     // API 호출
     const performApi = async () => {
-      const accessToken = await Storage.getItem("accessToken");
-      if (!accessToken) {
-        throw new Error("accessToken이 없습니다.");
-      }
       try {
-        const result = await performGrouping(
-          selectedPlaces,
-          groupCount,
-          balance,
-          accessToken
+        // 토큰 재발급 로직이 포함된 API 호출
+        const result = await withTokenRefresh(
+          (token) =>
+            performGrouping(selectedPlaces, groupCount, balance, token),
+          () => {
+            // 토큰 재발급 실패 시 로그인 페이지로 이동
+            console.log("토큰 재발급 실패. 로그인 페이지로 이동합니다.");
+            navigate("/");
+          }
         );
-        setGroupingResult(result);
-        setApiCompleted(true);
+
+        if (result) {
+          setGroupingResult(result);
+          setApiCompleted(true);
+        }
       } catch (error) {
         console.error("그룹화 요청 중 오류가 발생했습니다:", error);
 

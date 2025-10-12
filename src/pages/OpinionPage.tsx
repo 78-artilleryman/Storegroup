@@ -2,7 +2,7 @@ import { Top, TextArea, FixedBottomCTA } from "@toss-design-system/mobile";
 import { adaptive } from "@toss-design-system/colors";
 import { useNavigate } from "react-router-dom";
 import { estimate } from "@/services/estimate";
-import { Storage } from "@apps-in-toss/web-framework";
+import { withTokenRefresh } from "@/utils/tokenManager";
 import { useSearchStore } from "@/store";
 
 function OpinionPage() {
@@ -16,24 +16,33 @@ function OpinionPage() {
   };
 
   const handleEstimate = async () => {
-    const accessToken = await Storage.getItem("accessToken");
-    if (!accessToken) {
-      throw new Error("accessToken이 없습니다.");
-    }
-    const response = await estimate(
-      {
-        score: satisfactionScore ?? "NORMAL",
-        comment: opinion,
-      },
-      accessToken
+    // 토큰 재발급 로직이 포함된 API 호출
+    const response = await withTokenRefresh(
+      (token) =>
+        estimate(
+          {
+            score: satisfactionScore ?? "NORMAL",
+            comment: opinion,
+          },
+          token
+        ),
+      () => {
+        // 토큰 재발급 실패 시 로그인 페이지로 이동
+        console.log("토큰 재발급 실패. 로그인 페이지로 이동합니다.");
+        navigate("/");
+      }
     );
     console.log(response);
   };
 
   const handleSubmit = async () => {
-    await handleEstimate();
-    clearFeedback();
-    navigate("/success");
+    try {
+      await handleEstimate();
+      clearFeedback();
+      navigate("/success");
+    } catch (error) {
+      console.error("의견 제출 중 오류 발생:", error);
+    }
   };
 
   return (

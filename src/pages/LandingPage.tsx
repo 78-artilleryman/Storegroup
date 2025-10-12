@@ -9,20 +9,45 @@ import { adaptive } from "@toss-design-system/colors";
 import { useNavigate } from "react-router-dom";
 import { appLogin } from "@apps-in-toss/web-framework";
 import { loginApi } from "@/services/loginApi";
-import { Storage } from "@apps-in-toss/web-framework";
-
-const accessToken = "accessToken";
-const refreshToken = "refreshToken";
+import {
+  saveTokens,
+  getRefreshToken,
+  refreshAndSaveToken,
+} from "@/utils/tokenManager";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const navigate = useNavigate();
+  const [isChecking, setIsChecking] = useState(true);
 
-  async function handleSet(
-    accessTokenValue: string,
-    refreshTokenValue: string
-  ) {
-    await Storage.setItem(accessToken, accessTokenValue);
-    await Storage.setItem(refreshToken, refreshTokenValue);
+  // 이미 로그인되어 있는지 확인 (리프레시 토큰으로 재발급 시도)
+  useEffect(() => {
+    const checkLogin = async () => {
+      const refreshToken = await getRefreshToken();
+
+      if (!refreshToken) {
+        // 리프레시 토큰이 없으면 로그인 화면 표시
+        setIsChecking(false);
+        return;
+      }
+
+      // 리프레시 토큰이 있으면 토큰 재발급 시도
+      const success = await refreshAndSaveToken();
+
+      if (success) {
+        // 재발급 성공 시 홈으로 이동
+        navigate("/home");
+      } else {
+        // 재발급 실패 시 로그인 화면 표시
+        setIsChecking(false);
+      }
+    };
+    checkLogin();
+  }, [navigate]);
+
+  // 토큰 확인 중일 때는 아무것도 표시하지 않음
+  if (isChecking) {
+    return null;
   }
 
   async function handleLogin() {
@@ -32,7 +57,7 @@ export default function Page() {
 
       // 토큰이 존재하는 경우에만 저장
       if (loginApiResponse.accessToken && loginApiResponse.refreshToken) {
-        await handleSet(
+        await saveTokens(
           loginApiResponse.accessToken,
           loginApiResponse.refreshToken
         );
