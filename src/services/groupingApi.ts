@@ -1,4 +1,5 @@
 import type { Place, GroupingResponse } from "@/store";
+import { getApiBaseUrl } from "@/utils/apiConfig";
 
 export interface GroupingRequest {
   group: number;
@@ -23,11 +24,7 @@ export const performGrouping = async (
     );
   }
 
-  const baseUrl = import.meta.env.VITE_BASE_URL;
-
-  if (!baseUrl) {
-    throw new Error("VITE_BASE_URL 환경변수가 설정되지 않았습니다.");
-  }
+  const baseUrl = getApiBaseUrl();
 
   // 선택된 장소들을 요청 형식에 맞게 변환
   const requestData: GroupingRequest = {
@@ -72,7 +69,7 @@ export const performGrouping = async (
 export const getGroupingResult = async (
   accessToken: string
 ): Promise<GroupingResponse> => {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const baseUrl = getApiBaseUrl();
   const apiUrl = `${baseUrl}/cluster`;
   const response = await fetch(apiUrl, {
     method: "GET",

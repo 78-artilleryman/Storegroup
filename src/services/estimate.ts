@@ -1,3 +1,5 @@
+import { getApiBaseUrl } from "@/utils/apiConfig";
+
 interface EstimateRequest {
   score: "VERY_GOOD" | "GOOD" | "NORMAL" | "BAD" | "TOO_BAD";
   comment: string;
@@ -7,10 +9,7 @@ export const estimate = async (
   request: EstimateRequest,
   accessToken: string
 ) => {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
-  if (!baseUrl)
-    throw new Error("VITE_BASE_URL 환경변수가 설정되지 않았습니다.");
-
+  const baseUrl = getApiBaseUrl();
   const apiUrl = `${baseUrl}/more/estimate`;
 
   const response = await fetch(apiUrl, {
@@ -30,7 +29,7 @@ export const estimate = async (
 };
 
 export const postPhoneCall = async (accessToken: string) => {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const baseUrl = getApiBaseUrl();
   const apiUrl = `${baseUrl}/more/apply/phoneCall`;
 
   const response = await fetch(apiUrl, {
