@@ -1,6 +1,6 @@
 import { ClusterPlace } from "@/store";
-import { adaptive } from "@toss-design-system/colors";
-import { BottomSheet } from "@toss-design-system/mobile";
+import { colors } from "@toss/tds-colors";
+import { BottomSheet } from "@toss/tds-mobile";
 
 interface PlaceDetailBoxProps {
   place: ClusterPlace | null;
@@ -32,7 +32,7 @@ function PlaceDetailBox({
           <div className="flex gap-3 items-center">
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
-              style={{ backgroundColor: adaptive.grey400 }}
+              style={{ backgroundColor: colors.grey400 }}
             >
               {groupNumber}
             </div>
@@ -40,13 +40,13 @@ function PlaceDetailBox({
             <div className="min-w-0">
               <h3
                 className="font-bold text-[20px] break-all whitespace-normal leading-snug"
-                style={{ color: adaptive.grey800 }}
+                style={{ color: colors.grey800 }}
               >
                 {place.name}
               </h3>
               <span
                 className="text-[16px] leading-relaxed"
-                style={{ color: adaptive.grey600 }}
+                style={{ color: colors.grey600 }}
               >
                 {place.address}
               </span>

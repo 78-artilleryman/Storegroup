@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Place } from "@/store";
-import { Button } from "@toss-design-system/mobile";
+import { Button } from "@toss/tds-mobile";
 
 interface StoreListItemProps {
   place: Place;
@@ -27,8 +27,9 @@ const StoreListItem = memo(
         </div>
         <div className="flex items-center justify-end mt-1.5">
           <Button
-            size="tiny"
-            type={selected ? "dark" : "primary"}
+            size="small"
+            color={selected ? "dark" : "primary"}
+            variant="weak"
             onClick={() => onToggle(place)}
           >
             {selected ? "선택됨" : "장소 추가"}

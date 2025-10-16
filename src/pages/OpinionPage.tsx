@@ -1,5 +1,5 @@
-import { Top, TextArea, FixedBottomCTA } from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+import { Top, TextArea, FixedBottomCTA } from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 import { useNavigate } from "react-router-dom";
 import { estimate } from "@/services/estimate";
 import { withTokenRefresh } from "@/utils/tokenManager";
@@ -50,7 +50,7 @@ function OpinionPage() {
       <div className="h-[14px]" />
       <Top
         title={
-          <Top.TitleParagraph size={22} color={adaptive.grey900}>
+          <Top.TitleParagraph size={22} color={colors.grey900}>
             그렇게 생각한 이유를
             <br />
             알려주세요!

@@ -1,13 +1,6 @@
 import { useSearchStore } from "@/store";
-import {
-  Asset,
-  Button,
-  Paragraph,
-  Post,
-  Text,
-  Switch,
-} from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+import { Asset, Button, Paragraph, Post, Text, Switch } from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 
 function SelectedPlaceContent() {
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
@@ -28,13 +21,13 @@ function SelectedPlaceContent() {
           frameShape={Asset.frameShape.CleanW40}
           backgroundColor="transparent"
           name="icon-warning-circle-line-mono"
-          color={adaptive.grey300}
+          color={colors.grey300}
           aria-hidden={true}
           ratio="1/1"
         />
         <p
           className="text-[20px] font-semibold"
-          style={{ color: adaptive.grey300 }}
+          style={{ color: colors.grey300 }}
         >
           선택된 장소가 없습니다.
         </p>
@@ -48,7 +41,7 @@ function SelectedPlaceContent() {
       style={{ minHeight: "calc(100vh - 200px)" }}
     >
       <div className="mb-4 -ml-5 -mt-3">
-        <Post.H3 paddingBottom={8} color={adaptive.grey900}>
+        <Post.H3 paddingBottom={8} color={colors.grey900}>
           <Paragraph.Text>
             선택된 장소({selectedPlaces.length}개)
           </Paragraph.Text>
@@ -59,12 +52,12 @@ function SelectedPlaceContent() {
           <Asset.Icon
             frameShape={{ width: 18 }}
             name="icon-info-circle-mono"
-            color={adaptive.grey400}
+            color={colors.grey400}
             aria-hidden={true}
           />
           <Text
             display="block"
-            color={adaptive.grey700}
+            color={colors.grey700}
             typography="t6"
             fontWeight="medium"
           >
@@ -81,7 +74,7 @@ function SelectedPlaceContent() {
             <div className="flex items-center space-x-2">
               <span
                 className="text-[16px] font-semibold"
-                style={{ color: adaptive.grey700 }}
+                style={{ color: colors.grey700 }}
               >
                 그룹 수
               </span>
@@ -119,7 +112,7 @@ function SelectedPlaceContent() {
             <div className="flex items-center space-x-2">
               <span
                 className="text-[16px] font-semibold"
-                style={{ color: adaptive.grey700 }}
+                style={{ color: colors.grey700 }}
               >
                 그룹 밸런스
               </span>
@@ -159,8 +152,9 @@ function SelectedPlaceContent() {
               </div>
               <div className="flex items-center justify-end mt-1.5">
                 <Button
-                  size="tiny"
-                  type="danger"
+                  size="small"
+                  color="danger"
+                  variant="weak"
                   onClick={() => removeSelectedPlace(place)}
                 >
                   삭제

@@ -1,5 +1,5 @@
-import { Top, Asset } from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+import { Top, Asset } from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 import { Link } from "react-router-dom";
 
 function MorePage() {
@@ -8,7 +8,7 @@ function MorePage() {
       <div className="h-[14px]" />
       <Top
         title={
-          <Top.TitleParagraph size={22} color={adaptive.grey900}>
+          <Top.TitleParagraph size={22} color={colors.grey900}>
             문제가 생기셨나요?
             <br />
             언제든 의견을 보내주세요
@@ -35,7 +35,7 @@ function MorePage() {
             frameShape={Asset.frameShape.CleanW16}
             backgroundColor="transparent"
             name="icon-arrow-right-textbutton-mono"
-            color={adaptive.grey600}
+            color={colors.grey600}
             aria-hidden={true}
             ratio="1/1"
           />

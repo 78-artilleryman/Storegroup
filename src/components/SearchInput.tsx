@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useSearchStore } from "@/store";
 import { searchPlacesByKeyword } from "@/services/kakaoApi";
-import { SearchField } from "@toss-design-system/mobile";
+import { SearchField } from "@toss/tds-mobile";
 
 function SearchInput() {
   const [searchKeyword, setSearchKeyword] = useState("");

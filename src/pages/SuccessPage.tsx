@@ -5,8 +5,8 @@ import {
   BottomSheet,
   Button,
   useToast,
-} from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+} from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 import { useState } from "react";
 import { withTokenRefresh } from "@/utils/tokenManager";
 import { postPhoneCall } from "@/services/estimate";
@@ -58,7 +58,7 @@ function SuccessPage() {
     <div className="flex flex-col bg-white min-h-[calc(100vh-24px)]">
       <Top
         title={
-          <Top.TitleParagraph size={22} color={adaptive.grey900}>
+          <Top.TitleParagraph size={22} color={colors.grey900}>
             답변이 잘 제출됐어요.
             <br />
             소중한 의견 감사해요
@@ -90,7 +90,11 @@ function SuccessPage() {
         cta={
           <BottomSheet.DoubleCTA
             leftButton={
-              <Button type="dark" onClick={handleBottomSheetClose}>
+              <Button
+                color="dark"
+                variant="weak"
+                onClick={handleBottomSheetClose}
+              >
                 다음에 할게요
               </Button>
             }

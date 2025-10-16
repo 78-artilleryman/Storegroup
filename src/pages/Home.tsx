@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="p-4 bg-white">
+      <div className=" bg-white">
         <SearchInput />
         <ExcelDataImporter />
       </div>

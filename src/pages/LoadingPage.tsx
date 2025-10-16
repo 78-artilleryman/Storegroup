@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
 import { performGrouping } from "@/services/groupingApi";
 import { withTokenRefresh } from "@/utils/tokenManager";
-import { Asset, Top } from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+import { Asset, Top } from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 
 function LoadingPage() {
   const navigate = useNavigate();
@@ -72,12 +72,12 @@ function LoadingPage() {
     <main className="min-h-[calc(100vh)] bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center">
       <Top
         title={
-          <Top.TitleParagraph size={22} color={adaptive.grey900}>
+          <Top.TitleParagraph size={22} color={colors.grey900}>
             {groupCount}개의 그룹으로 분석하고 있어요
           </Top.TitleParagraph>
         }
         lower={
-          <Top.SubtitleParagraph color={adaptive.grey500}>
+          <Top.SubtitleParagraph color={colors.grey500}>
             <span className="pl-6">잠시만 기다려주세요.</span>
           </Top.SubtitleParagraph>
         }

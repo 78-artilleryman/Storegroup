@@ -1,4 +1,4 @@
-import { SegmentedControl } from "@toss-design-system/mobile";
+import { SegmentedControl } from "@toss/tds-mobile";
 import { useRef, useEffect } from "react";
 
 type TabType = "search" | "list";

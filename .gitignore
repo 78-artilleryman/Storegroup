@@ -45,3 +45,4 @@ yarn-error.log*
 # dist
 dist
 storegroup.ait
+.granite

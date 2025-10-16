@@ -4,8 +4,8 @@ import {
   StepperRow,
   Stepper,
   FixedBottomCTA,
-} from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+} from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 import { useNavigate } from "react-router-dom";
 import { appLogin } from "@apps-in-toss/web-framework";
 import { loginApi } from "@/services/loginApi";
@@ -73,7 +73,7 @@ export default function Page() {
     <div className="flex flex-col bg-white min-h-[calc(100vh)]">
       <Top
         title={
-          <Top.TitleParagraph size={28} color={adaptive.grey900}>
+          <Top.TitleParagraph size={28} color={colors.grey900}>
             매장 방문, 한 눈에 정리하고 빠르게 출발해요
           </Top.TitleParagraph>
         }
@@ -121,7 +121,7 @@ export default function Page() {
             />
           }
           center={
-            <StepperRow.Texts type="A" title="그룹화하면 끝!" description="" />
+            <StepperRow.Texts type="A" title="그룹화하면 끝" description="" />
           }
         />
         <StepperRow

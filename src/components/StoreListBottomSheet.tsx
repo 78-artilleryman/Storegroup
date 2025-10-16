@@ -4,10 +4,10 @@ import { Place } from "@/store";
 import StoreListContent from "./StoreListContent";
 import SelectedPlaceContent from "./SelectedPlaceContent";
 import StoreListTabs from "./StoreListTabs";
-import { BottomSheet, Button } from "@toss-design-system/mobile";
+import { BottomSheet, Button, Post, Paragraph } from "@toss/tds-mobile";
 import { useNavigate } from "react-router-dom";
-import { Post, Paragraph } from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+import {} from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 
 type TabType = "search" | "list";
 
@@ -97,7 +97,8 @@ function StoreListBottomSheet() {
             <BottomSheet.DoubleCTA
               leftButton={
                 <Button
-                  type="danger"
+                  color="danger"
+                  variant="weak"
                   disabled={selectedPlaces.length === 0}
                   onClick={() => removeSelectedPlaces()}
                 >
@@ -119,7 +120,7 @@ function StoreListBottomSheet() {
         {/* 컨텐츠 */}
         {activeTab === "search" ? (
           <>
-            <Post.H3 color={adaptive.grey900}>
+            <Post.H3 color={colors.grey900}>
               <Paragraph.Text>검색 결과 ({places.length}개)</Paragraph.Text>
             </Post.H3>
 

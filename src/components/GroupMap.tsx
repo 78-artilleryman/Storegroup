@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import PlaceDetailBox from "./PlaceDetailBox";
 import Markers from "./Markers";
 import { loadKakaoMapScript } from "@/utils/kakaoLoader";
-import { Asset, Result } from "@toss-design-system/mobile";
+import { Asset, Result } from "@toss/tds-mobile";
 import { useNavigate } from "react-router-dom";
 
 declare global {

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { TDSMobileBedrockProvider } from "@toss-design-system/mobile-bedrock";
+import { TDSMobileAITProvider } from "@toss/tds-mobile-ait";
 import Header from "@/components/Header";
 import IntroPage from "@/pages/LandingPage";
 import GroupPage from "@/pages/GroupPage";
@@ -12,7 +12,7 @@ import SuccessPage from "@/pages/SuccessPage";
 
 function App() {
   return (
-    <TDSMobileBedrockProvider>
+    <TDSMobileAITProvider>
       <Router>
         <Routes>
           {/* 헤더가 없는 페이지들 */}
@@ -83,7 +83,7 @@ function App() {
           />
         </Routes>
       </Router>
-    </TDSMobileBedrockProvider>
+    </TDSMobileAITProvider>
   );
 }
 

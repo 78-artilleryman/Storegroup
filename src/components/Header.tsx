@@ -1,5 +1,5 @@
-import { adaptive } from "@toss-design-system/colors";
-import { Tab } from "@toss-design-system/mobile";
+import { colors } from "@toss/tds-colors";
+import { Tab } from "@toss/tds-mobile";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
@@ -23,7 +23,7 @@ function Header() {
       className="w-full flex justify-between"
       fluid={false}
       size="large"
-      style={{ backgroundColor: adaptive.background }}
+      style={{ backgroundColor: colors.background }}
       onChange={(index) => {
         if (index === 0) {
           navigate("/home");

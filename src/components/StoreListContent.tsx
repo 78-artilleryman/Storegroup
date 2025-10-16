@@ -1,7 +1,7 @@
 import { Place } from "@/store";
 import StoreListItem from "./StoreListItem";
-import { Asset } from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+import { Asset } from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 
 interface StoreListContentProps {
   places: Place[];
@@ -25,13 +25,13 @@ function StoreListContent({
             frameShape={Asset.frameShape.CleanW40}
             backgroundColor="transparent"
             name="icon-warning-circle-line-mono"
-            color={adaptive.grey300}
+            color={colors.grey300}
             aria-hidden={true}
             ratio="1/1"
           />
           <p
             className="text-[20px] font-semibold"
-            style={{ color: adaptive.grey300 }}
+            style={{ color: colors.grey300 }}
           >
             검색 내역이 없습니다.
           </p>

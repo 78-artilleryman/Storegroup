@@ -1,11 +1,5 @@
-import {
-  Top,
-  List,
-  ListRow,
-  Checkbox,
-  FixedBottomCTA,
-} from "@toss-design-system/mobile";
-import { adaptive } from "@toss-design-system/colors";
+import { Top, List, ListRow, Checkbox, FixedBottomCTA } from "@toss/tds-mobile";
+import { colors } from "@toss/tds-colors";
 import { useNavigate } from "react-router-dom";
 import { useSearchStore } from "@/store";
 
@@ -33,7 +27,7 @@ function SatisfactionPage() {
       <div className="h-[14px]" />
       <Top
         title={
-          <Top.TitleParagraph size={22} color={adaptive.grey900}>
+          <Top.TitleParagraph size={22} color={colors.grey900}>
             스토어그룹 서비스에
             <br />
             얼마나 만족하시나요?
@@ -50,7 +44,7 @@ function SatisfactionPage() {
               <ListRow.Texts
                 type="1RowTypeA"
                 top={option.label}
-                topProps={{ color: adaptive.grey700 }}
+                topProps={{ color: colors.grey700 }}
               />
             }
             right={
