@@ -1,4 +1,4 @@
-import { Top, Asset } from "@toss/tds-mobile";
+import { Top, ListRow, Asset } from "@toss/tds-mobile";
 import { colors } from "@toss/tds-colors";
 import { Link } from "react-router-dom";
 
@@ -18,29 +18,27 @@ function MorePage() {
       />
       <div className="h-[24px]" />
       <Link to="/satisfaction" className="flex items-start  min-h-[400px]">
-        <div className="flex items-center justify-between gap-4 px-6 mt-4 w-full">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center rounded-full bg-gray-100 w-[48px] h-[48px]">
-              <Asset.Icon
-                frameShape={{ width: 30, height: 30 }}
-                backgroundColor="transparent"
-                name="icon-paper-plane"
-                aria-hidden={true}
-                ratio="1/1"
-              />
-            </div>
-            <p className="text-gray-600 text-xl font-bold">의견 보내기</p>
-          </div>
-          <Asset.Icon
-            frameShape={Asset.frameShape.CleanW16}
-            backgroundColor="transparent"
-            name="icon-arrow-right-textbutton-mono"
-            color={colors.grey600}
-            aria-hidden={true}
-            ratio="1/1"
-          />
-        </div>
+        <ListRow
+          left={
+            <Asset.Image
+              frameShape={Asset.frameShape.CleanW60}
+              src="https://static.toss.im/2d-emojis/png/4x/u1F4F1.png"
+              aria-hidden={true}
+              className="w-[24px] h-[24px]"
+            />
+          }
+          contents={
+            <ListRow.Texts
+              type="1RowTypeA"
+              top="전화 인터뷰 신청하기"
+              topProps={{ color: colors.grey700 }}
+            />
+          }
+          verticalPadding="large"
+          arrowType="right"
+        />
       </Link>
+
       <footer className="text-gray-600 p-4 bg-gray-100 h-full ">
         <p>
           스토어그룹 ㅣ 서울특별시 동대문구 회기로 168 ㅣ사업자 등록번호:

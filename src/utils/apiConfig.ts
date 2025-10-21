@@ -9,10 +9,12 @@ export const getApiBaseUrl = (): string => {
   // Dev 환경 (private-apps 도메인에 접속한 경우)
   if (hostname.includes("private-apps.tossmini.com")) {
     const devUrl = import.meta.env.VITE_DEV_URL;
+    // const prodUrl = import.meta.env.VITE_PROD_URL;
     if (!devUrl) {
       throw new Error("VITE_DEV_URL 환경변수가 설정되지 않았습니다.");
     }
     return devUrl;
+    // return prodUrl;
   }
 
   // Prod 환경 (apps 도메인에 접속한 경우)
