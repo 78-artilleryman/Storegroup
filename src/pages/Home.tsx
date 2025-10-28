@@ -6,6 +6,7 @@ import { useSearchStore } from "@/store";
 import { getGroupingResult } from "@/services/groupingApi";
 import { withTokenRefresh } from "@/utils/tokenManager";
 import { useNavigate } from "react-router-dom";
+import { closeView, graniteEvent } from "@apps-in-toss/web-framework";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -58,6 +59,18 @@ export default function Home() {
       fetchGrouping();
     }
   }, [groupingResult, setGroupingResult, navigate]);
+
+  useEffect(() => {
+    const unsubscription = graniteEvent.addEventListener("backEvent", {
+      onEvent: () => {
+        closeView();
+      },
+      onError: (error) => {
+        alert(`에러가 발생했어요: ${error}`);
+      },
+    });
+    return unsubscription;
+  }, []);
 
   return (
     <>

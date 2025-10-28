@@ -7,7 +7,6 @@ import {
 } from "@toss/tds-mobile";
 import { colors } from "@toss/tds-colors";
 import { useNavigate } from "react-router-dom";
-import { appLogin } from "@apps-in-toss/web-framework";
 import { loginApi } from "@/services/loginApi";
 import {
   saveTokens,
@@ -15,6 +14,7 @@ import {
   refreshAndSaveToken,
 } from "@/utils/tokenManager";
 import { useEffect, useState } from "react";
+import { closeView, graniteEvent, appLogin } from "@apps-in-toss/web-framework";
 
 export default function Page() {
   const navigate = useNavigate();
@@ -44,6 +44,18 @@ export default function Page() {
     };
     checkLogin();
   }, [navigate]);
+
+  useEffect(() => {
+    const unsubscription = graniteEvent.addEventListener("backEvent", {
+      onEvent: () => {
+        closeView();
+      },
+      onError: (error) => {
+        alert(`에러가 발생했어요: ${error}`);
+      },
+    });
+    return unsubscription;
+  }, []);
 
   // 토큰 확인 중일 때는 아무것도 표시하지 않음
   if (isChecking) {
