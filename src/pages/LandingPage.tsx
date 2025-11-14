@@ -7,7 +7,7 @@ import {
 } from "@toss/tds-mobile";
 import { colors } from "@toss/tds-colors";
 import { useNavigate } from "react-router-dom";
-import { appLogin } from "@apps-in-toss/web-framework";
+import { appLogin, Analytics } from "@apps-in-toss/web-framework";
 import { loginApi } from "@/services/loginApi";
 import {
   saveTokens,
@@ -62,6 +62,7 @@ export default function Page() {
           loginApiResponse.refreshToken
         );
         // 로그인 성공 시 홈 페이지로 이동
+        Analytics.click({ button_name: "login_button" });
         navigate("/home");
       }
     } catch (error) {
@@ -146,7 +147,7 @@ export default function Page() {
           hideLine={true}
         />
       </Stepper>
-      <FixedBottomCTA loading={false} onClick={handleLogin}>
+      <FixedBottomCTA id="login_button" loading={false} onClick={handleLogin}>
         로그인하기
       </FixedBottomCTA>
     </div>
