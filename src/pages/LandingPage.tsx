@@ -26,6 +26,21 @@ export default function Page() {
   const navigate = useNavigate();
   const [isChecking, setIsChecking] = useState(true);
 
+  useEffect(() => {
+    const btn = document.getElementById("login_button");
+    if (!btn) return;
+
+    const handleClick = () => {
+      Analytics.click({ button_name: "login_button" });
+    };
+
+    btn.addEventListener("click", handleClick);
+
+    return () => {
+      btn.removeEventListener("click", handleClick);
+    };
+  }, []);
+
   // 이미 로그인되어 있는지 확인 (리프레시 토큰으로 재발급 시도)
   useEffect(() => {
     const checkLogin = async () => {

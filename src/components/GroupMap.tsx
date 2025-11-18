@@ -7,6 +7,7 @@ import Markers from "./Markers";
 import { loadKakaoMapScript } from "@/utils/kakaoLoader";
 import { Asset, Result } from "@toss/tds-mobile";
 import { useNavigate } from "react-router-dom";
+import { Analytics } from "@apps-in-toss/web-framework";
 
 declare global {
   interface Window {
@@ -175,10 +176,16 @@ function GroupMap() {
               const color2 = GROUP_COLORS_2[groupIndex % GROUP_COLORS_2.length];
               return (
                 <Button
+                  id={`grouppage_groupedplace[${groupIndex}]`}
                   key={groupKey}
                   variant={selectedGroup === groupKey ? "default" : "outline"}
                   size="sm"
-                  onClick={() => handleGroupSelect(groupKey)}
+                  onClick={() => {
+                    Analytics.click({
+                      button_name: `grouppage_groupedplace[${groupIndex}]`,
+                    });
+                    handleGroupSelect(groupKey);
+                  }}
                   className="text-xs flex items-center button-click-animation font-extrabold"
                   style={{
                     backgroundColor:

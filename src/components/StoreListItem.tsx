@@ -1,6 +1,7 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { Place } from "@/store";
 import { Button } from "@toss/tds-mobile";
+import { Analytics } from "@apps-in-toss/web-framework";
 
 interface StoreListItemProps {
   place: Place;
@@ -11,6 +12,21 @@ interface StoreListItemProps {
 
 const StoreListItem = memo(
   ({ place, selected, onToggle }: StoreListItemProps) => {
+    useEffect(() => {
+      const btn = document.getElementById("storelist_addplace");
+      if (!btn) return;
+
+      const handleClick = () => {
+        Analytics.click({ button_name: "storelist_addplace" });
+      };
+
+      btn.addEventListener("click", handleClick);
+
+      return () => {
+        btn.removeEventListener("click", handleClick);
+      };
+    }, []);
+
     return (
       <li className="flex justify-between items-end gap-3 p-3 bg-white rounded-lg hover:border-gray-200 transition-colors">
         <div className="flex flex-col">
@@ -27,6 +43,7 @@ const StoreListItem = memo(
         </div>
         <div className="flex items-center justify-end mt-1.5">
           <Button
+            id="storelist_addplace"
             size="small"
             color={selected ? "dark" : "primary"}
             variant="weak"

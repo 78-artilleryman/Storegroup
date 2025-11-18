@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSearchStore } from "@/store";
 import { searchPlacesByKeyword } from "@/services/kakaoApi";
 import { SearchField } from "@toss/tds-mobile";
+import { Analytics } from "@apps-in-toss/web-framework";
 
 function SearchInput() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -11,6 +12,21 @@ function SearchInput() {
     (state) => state.setIsBottomSheetOpen
   );
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const btn = document.getElementById("storelist_input");
+    if (!btn) return;
+
+    const handleClick = () => {
+      Analytics.click({ button_name: "storelist_input" });
+    };
+
+    btn.addEventListener("click", handleClick);
+
+    return () => {
+      btn.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   const searchPlaces = async () => {
     if (!searchKeyword.trim()) return;
@@ -90,6 +106,7 @@ function SearchInput() {
     <>
       <form onSubmit={handleSubmit} className="w-full flex items-center gap-2">
         <SearchField
+          id="storelist_input"
           ref={inputRef}
           placeholder="장소를 입력해 보세요"
           value={searchKeyword}

@@ -1,6 +1,8 @@
 import { useSearchStore } from "@/store";
 import { Asset, Button, Paragraph, Post, Text, Switch } from "@toss/tds-mobile";
 import { colors } from "@toss/tds-colors";
+import { useEffect } from "react";
+import { Analytics } from "@apps-in-toss/web-framework";
 
 function SelectedPlaceContent() {
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
@@ -13,6 +15,21 @@ function SelectedPlaceContent() {
   const setGroupCount = useSearchStore((state) => state.setGroupCount);
   const balance = useSearchStore((state) => state.balance);
   const setBalance = useSearchStore((state) => state.setBalance);
+
+  useEffect(() => {
+    const btn = document.getElementById("storelist_delete");
+    if (!btn) return;
+
+    const handleClick = () => {
+      Analytics.click({ button_name: "storelist_delete" });
+    };
+
+    btn.addEventListener("click", handleClick);
+
+    return () => {
+      btn.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   if (selectedPlaces.length === 0) {
     return (
@@ -119,7 +136,15 @@ function SelectedPlaceContent() {
             </div>
             <Switch
               checked={balance === 1}
-              onChange={(_event, checked) => setBalance(checked ? 1 : 0)}
+              onChange={(_event, checked) => {
+                Analytics.click({
+                  button_name: checked
+                    ? "grouppage_groupbalance_on"
+                    : "grouppage_groupbalance_off",
+                });
+
+                setBalance(checked ? 1 : 0);
+              }}
             />
           </div>
           <p className="text-xs text-gray-500">
@@ -152,6 +177,7 @@ function SelectedPlaceContent() {
               </div>
               <div className="flex items-center justify-end mt-1.5">
                 <Button
+                  id="storelist_delete"
                   size="small"
                   color="danger"
                   variant="weak"

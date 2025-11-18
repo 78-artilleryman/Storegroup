@@ -1,4 +1,4 @@
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, memo, useEffect } from "react";
 import { useSearchStore } from "@/store";
 import { Place } from "@/store";
 import StoreListContent from "./StoreListContent";
@@ -8,6 +8,7 @@ import { BottomSheet, Button, Post, Paragraph } from "@toss/tds-mobile";
 import { useNavigate } from "react-router-dom";
 import {} from "@toss/tds-mobile";
 import { colors } from "@toss/tds-colors";
+import { Analytics } from "@apps-in-toss/web-framework";
 
 type TabType = "search" | "list";
 
@@ -27,6 +28,36 @@ function StoreListBottomSheet() {
   const isPlaceSelected = useSearchStore((state) => state.isPlaceSelected);
   const selectedPlaces = useSearchStore((state) => state.selectedPlaces);
   const groupCount = useSearchStore((state) => state.groupCount);
+
+  useEffect(() => {
+    const btn = document.getElementById("storelist_deleteall");
+    const btn2 = document.getElementById("storelist_grouping");
+
+    const handleClickDeleteAll = () => {
+      Analytics.click({ button_name: "storelist_deleteall" });
+    };
+
+    const handleClickGrouping = () => {
+      Analytics.click({ button_name: "storelist_grouping" });
+    };
+
+    if (btn) {
+      btn.addEventListener("click", handleClickDeleteAll);
+    }
+
+    if (btn2) {
+      btn2.addEventListener("click", handleClickGrouping);
+    }
+
+    return () => {
+      if (btn) {
+        btn.removeEventListener("click", handleClickDeleteAll);
+      }
+      if (btn2) {
+        btn2.removeEventListener("click", handleClickGrouping);
+      }
+    };
+  }, []);
 
   // 장소 토글 핸들러를 메모이제이션
   const handlePlaceToggle = useCallback(
@@ -69,6 +100,7 @@ function StoreListBottomSheet() {
       {/* 목록보기 버튼 */}
       {!isOpen && (
         <button
+          id="storelist_list"
           onClick={toggleBottomSheet}
           className="fixed bottom-16 w-[100px] h-[36px] rounded-full left-1/2 -translate-x-1/2 z-50 bg-white shadow-md hover:bg-gray-50 transition-all text-sm font-medium"
         >
@@ -97,6 +129,7 @@ function StoreListBottomSheet() {
             <BottomSheet.DoubleCTA
               leftButton={
                 <Button
+                  id="storelist_deleteall"
                   color="danger"
                   variant="weak"
                   disabled={selectedPlaces.length === 0}
@@ -107,6 +140,7 @@ function StoreListBottomSheet() {
               }
               rightButton={
                 <Button
+                  id="storelist_grouping"
                   disabled={selectedPlaces.length < groupCount}
                   onClick={handleGrouping}
                 >
