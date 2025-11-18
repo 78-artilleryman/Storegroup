@@ -1,9 +1,10 @@
 import {
   Asset,
-  Top,
   StepperRow,
-  Stepper,
   FixedBottomCTA,
+  List,
+  ListRow,
+  Text,
 } from "@toss/tds-mobile";
 import { colors } from "@toss/tds-colors";
 import { useNavigate } from "react-router-dom";
@@ -89,83 +90,127 @@ export default function Page() {
 
   return (
     <div className="flex flex-col bg-white min-h-[calc(100vh)]">
-      <Top
-        title={
-          <Top.TitleParagraph size={28} color={colors.grey900}>
-            매장 방문, 한 눈에 정리하고 빠르게 출발해요
-          </Top.TitleParagraph>
-        }
-        upper={
-          <Top.UpperAssetContent
-            content={
-              <Asset.Icon
-                frameShape={Asset.frameShape.CleanW60}
-                name="icon-map"
-                aria-hidden={true}
+      <div className="flex flex-col mt-10">
+        <Text
+          display="block"
+          color={colors.grey800}
+          typography="st5"
+          fontWeight="semibold"
+          textAlign="center"
+        >
+          방문할 매장 동선 관리,
+        </Text>
+        <div className="flex flex-row items-center justify-center">
+          <Text
+            display="block"
+            color={colors.blue600}
+            typography="st5"
+            fontWeight="bold"
+            textAlign="center"
+          >
+            스토어그룹{" "}
+          </Text>
+          <Text
+            display="block"
+            color={colors.grey800}
+            typography="st5"
+            fontWeight="semibold"
+            textAlign="center"
+          >
+            이 도와줄게요
+          </Text>
+        </div>
+      </div>
+      <div className="flex items-center justify-center mt-10">
+        <Asset.Image
+          frameShape={Asset.frameShape.CleanW100}
+          backgroundColor="transparent"
+          src="https://static.toss.im/3d-emojis/u1F31E.png"
+          aria-hidden={true}
+          style={{ aspectRatio: "1/1" }}
+        />
+      </div>
+
+      <div className="pt-20" />
+      <List className="flex flex-col gap-3">
+        <div style={{ background: colors.grey50 }} className="mx-4 rounded-2xl">
+          <ListRow
+            left={
+              <StepperRow.AssetFrame
+                shape={Asset.frameShape.CleanW32}
+                content={
+                  <Asset.ContentIcon
+                    name="icon-store-food-blue"
+                    aria-hidden={true}
+                  />
+                }
               />
             }
+            contents={
+              <ListRow.Texts
+                type="2RowTypeA"
+                top="흩어진 매장, 한눈에 정리"
+                topProps={{ color: colors.grey700, fontWeight: "bold" }}
+                bottom="방문해야 하는 매장을 한눈에 정리해줘요."
+                bottomProps={{ color: colors.grey600 }}
+              />
+            }
+            verticalPadding="large"
           />
-        }
-      />
-      <div className="h-[174px]" />
-      <Stepper>
-        <StepperRow
-          left={
-            <StepperRow.AssetFrame
-              shape={Asset.frameShape.CleanW32}
-              content={
-                <Asset.ContentIcon name="icon-store-white" aria-hidden={true} />
-              }
-            />
-          }
-          center={
-            <StepperRow.Texts
-              type="A"
-              title="가야할 매장을 등록하고"
-              description=""
-            />
-          }
-        />
-        <StepperRow
-          left={
-            <StepperRow.AssetFrame
-              shape={Asset.frameShape.CleanW32}
-              content={
-                <Asset.ContentImage
-                  src="https://static.toss.im/2d-emojis/png/4x/u1F5C2.png"
-                  aria-hidden={true}
-                />
-              }
-            />
-          }
-          center={
-            <StepperRow.Texts type="A" title="그룹화하면 끝" description="" />
-          }
-        />
-        <StepperRow
-          left={
-            <StepperRow.AssetFrame
-              shape={Asset.frameShape.CleanW32}
-              content={
-                <Asset.ContentIcon
-                  name="icon-document-store"
-                  aria-hidden={true}
-                />
-              }
-            />
-          }
-          center={
-            <StepperRow.Texts
-              type="A"
-              title="오늘의 방문 매장을 확인하고 출발해요"
-              description=""
-            />
-          }
-          hideLine={true}
-        />
-      </Stepper>
+        </div>
+
+        <div style={{ background: colors.grey50 }} className="mx-4 rounded-2xl">
+          <ListRow
+            left={
+              <StepperRow.AssetFrame
+                shape={Asset.frameShape.CleanW32}
+                content={
+                  <Asset.ContentIcon name="icon-folder" aria-hidden={true} />
+                }
+              />
+            }
+            contents={
+              <ListRow.Texts
+                type="2RowTypeA"
+                top="가까운 매장끼리 자동 그룹핑"
+                topProps={{ color: colors.grey700, fontWeight: `bold` }}
+                bottom="등록만 하면 위치 기반으로 가장 효율적인 루트를 추천해줘요."
+                bottomProps={{ color: colors.grey600 }}
+              />
+            }
+            verticalPadding="large"
+          />
+        </div>
+
+        <div style={{ background: colors.grey50 }} className="mx-4 rounded-2xl">
+          <ListRow
+            left={
+              <StepperRow.AssetFrame
+                shape={Asset.frameShape.CleanW32}
+                content={
+                  <Asset.ContentIcon
+                    name="icon-document-store"
+                    aria-hidden={true}
+                  />
+                }
+              />
+            }
+            contents={
+              <ListRow.Texts
+                type="2RowTypeA"
+                top="영업 동선 최적화"
+                topProps={{ color: colors.grey700, fontWeight: `bold` }}
+                bottom="이동 시간은 줄이고, 방문 효율을 높여요."
+                bottomProps={{ color: colors.grey600 }}
+              />
+            }
+            verticalPadding="large"
+          />
+        </div>
+      </List>
+
       <FixedBottomCTA id="login_button" loading={false} onClick={handleLogin}>
-        로그인하기
+        매장 그룹핑하기
       </FixedBottomCTA>
     </div>
   );
