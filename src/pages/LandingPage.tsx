@@ -137,12 +137,12 @@ export default function Page() {
         </div>
       </div>
       <div className="flex items-center justify-center mt-10">
-        <Asset.Image
+        <Asset.Icon
           frameShape={Asset.frameShape.CleanW100}
           backgroundColor="transparent"
-          src="https://static.toss.im/3d-emojis/u1F31E.png"
+          name="icon-map"
           aria-hidden={true}
-          style={{ aspectRatio: "1/1" }}
+          ratio="1/1"
         />
       </div>
 
